@@ -67,8 +67,8 @@ let referencedata = {
 }
 
 
-app.get('/list', function (req, resp){
-    resp.send(instruments);
+app.get('/articles', function (req, resp){
+    resp.json(articles);
 });
 
 app.listen(8090);
