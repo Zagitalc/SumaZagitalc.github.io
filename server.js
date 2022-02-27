@@ -24,7 +24,7 @@ let articles = {
     
     
     "Image": "",
-    "Highlights":"",
+    "Highlights":"<p>Bulk of COVID-19 per capita deaths occur in elderly with high comorbidities <Br> <Br>Per capita COVID-19 deaths are negligible in children.</p>",
     "Abstract": "blahblahblah</p>",
     "Comments": [
         {
@@ -60,7 +60,7 @@ let referencedata = {
     ],
     "Type of publication":"",
     "Date of publication":"",
-    "DOI":"",
+    "DOI":"https://doi.org/10.1016/j.toxrep.2021.08.010",
     "URL":""
 
 
