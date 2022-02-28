@@ -3,72 +3,196 @@ const app = express();
 
 app.use(express.static(`client`));
 
-let articles = {
-    "Title": "Why are we vaccinating children against COVID-19?",
-    "Author": [
-        {
-        "Name":"",
-        "AuthorID":""
-        }
-    ],
-    "publisher":"",
-    "publishinfo":[
+var bodyParser = require('body-parser'); app.use(bodyParser.urlencoded({ extended: false }));
 
-        {
-            "Volume":"8",
-            "Issue no":"n/a"
-        }
-    ],
-    "Date": "2021",
-    
-    
-    
-    "Image": "",
-    "Highlights":"<p>Bulk of COVID-19 per capita deaths occur in elderly with high comorbidities <Br> <Br>Per capita COVID-19 deaths are negligible in children.</p>",
-    "Abstract": "blahblahblah</p>",
-    "Comments": [
-        {
-            "Name": "abcd12",
-            "Text": ""
-        },
+
+let articles = [
+    {
+        "id":1,
+        "title": "Why are we vaccinating children against COVID-19?",
+        "author": [
+            {
+            "name":"",
+            "authorID":""
+            }
+        ],
+        "publisher":"",
+        "publishinfo":[
+
+            {
+                "Volume":"8",
+                "Issue no":"n/a"
+            }
+        ],
+        "date": "2021",
+        "doi":"https://doi.org/10.1016/j.toxrep.2021.08.010",
         
-        {
-            "Name": "plxy99",
-            "Text": ""
-        }
-    ]
-}
+        
+        "image": "/pictures/covidarticle.jpg",
+        "highlights":"<p>Bulk of COVID-19 per capita deaths occur in elderly with high comorbidities <Br> <Br>Per capita COVID-19 deaths are negligible in children.</p>",
+        "abstract": "blahblahblah</p>",
+        "comments": [
+            {
+                "name": "abcd12",
+                "text": "das ist ganz gut"
+            },
+            
+            {
+                "Name": "plxy99",
+                "Text": "doch!"
+            }
+        ]
+    },
+    {
+        "id":2,
+        "title": "Total coloring of recursive maximal planar graphs",
+        "author": [
+            {
+            "name":"YangyangZhou",
+            "authorID":1
+            },
+            {
+                "name":"DongyangZhao",
+                "authorID":2
+            },
+            {
+                "name":"MingyuanMa",
+                "authorID":3
+            },
+            {
+                "name":"JinXu",
+                "authorID":4
+            }
+            
+            
+               
+        ],
+        "publisher":"",
+        "publishinfo":[
 
-let reftype={
-    "Harvard":"",
-    "Vancouver":"",
-    "IEEE":""
+            {
+                "Volume":"8",
+                "Issue no":"n/a"
+            }
+        ],
+        "date": "2021",
+        "doi":"https://doi.org/10.1016/j.tcs.2022.01.024",
+        
+        
+        "image": "/pictures/A-3-connected-maximal-planar-graph-with-d-5-First-suppose-that-d-T-5-In-this-case.png",
+        "highlights":"<p>Bulk of COVID-19 per capita deaths occur in elderly with high comorbidities <Br> <Br>Per capita COVID-19 deaths are negligible in children.</p>",
+        "abstract": "blahblahblah</p>",
+        "comments": [
+            {
+                "name": "abcd12",
+                "text": "das ist ganz gut"
+            },
+            
+            {
+                "name": "plxy99",
+                "text": "doch!"
+            }
+        ]
+    }
+]
 
-}
+let reftype=["Harvard","Vancouver","IEEE"]
+    
+let references = []
 
-let referencedata = {
-    "reference number":"[9]",
-    "Initials":[{
+
+
+
+
+
+app.get('/articles', function (req, resp){
+    resp.json(articles);
+
+});
+
+
+//search for title by keyword, return the suitabble title
+app.get('/searchpoint',function(req,resp){
+    const search = req.query.search;
+    let results = [];
+  
+    for (let i = 0; i < articles.length;i++){
+  
+      let article = articles[i];
+      if (article.title.includes(search)){
+        //insert at the last postion of the array
+        results.push(article.doi);
+      }
+      
+  
+    }
+    resp.send(results);
+  });
+
+//create your own citation using app.post
+app.post('/new', function (req,resp){
+
+
+
+    console.log("got request");
+    console.log(req.body);
+
+    const ref_no = req.body.ref_no;
+    const initial = req.body.initial;
+    const surname = req.body.surname;
+    const author ={
+    
 
     
-        "Initial":"",
-        "Surname":""
+        "initial":initial,
+        "surname":surname
+
+
+    };
+    const initials =[];
+    initials.push(author);
+    const title = req.body.title;
+
+
+    const referencedata = {
+    "reference number": ref_no,
+    "initials":[{
+
+    
+        "initial":initials,
+        "surname":surname
 
     }
     
 
     ],
-    "Type of publication":"",
-    "Date of publication":"",
-    "DOI":"https://doi.org/10.1016/j.toxrep.2021.08.010",
-    "URL":""
+    "title":title,
+    // "type of publication":pub_type,
+    // "date of publication":pub_date,
+    // "doi":doi_href,
+    // "url":href
 
 
-}
+    }
+
+    references.push(referencedata);
+    resp.json(references);
 
 
-app.get('/articles', function (req, resp){
-    resp.json(articles);
+
+  
+  
+
+
 });
+
+
+
+
+
+
+
+
+
 
 app.listen(8090);
