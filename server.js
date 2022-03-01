@@ -13,9 +13,13 @@ let articles = [
         "title": "Why are we vaccinating children against COVID-19?",
         "author": [
             {
-            "name":"",
-            "authorID":""
-            }
+                "name":"Ronald N.Kostoff",
+                "authorID":""
+            },
+            {
+                "name":"Daniel Calina",
+                "authorID":""
+                }
         ],
         "publisher":"",
         "publishinfo":[
@@ -94,7 +98,48 @@ let articles = [
                 "text": "doch!"
             }
         ]
-    }
+    },
+    {
+        "id":3,
+        "title": "A Real Time Processing system for big data in astronomy: Applications to HERA",
+        "author": [
+            {
+                "name":"Ronald N.Kostoff",
+                "authorID":""
+            },
+            {
+                "name":"Daniel Calina",
+                "authorID":""
+                }
+        ],
+        "publisher":"",
+        "publishinfo":[
+
+            {
+                "Volume":"8",
+                "Issue no":"n/a"
+            }
+        ],
+        "date": "2021",
+        "doi":"https://doi.org/10.1016/j.ascom.2021.100489",
+        
+        
+        "image": "/pictures/escape-paper-astornomy.jpg",
+        "highlights":"<p>MethodsData analysis — Physical sciences and engineeringAstronomy — SoftwareData analysis — SoftwareDevelopment</p>",
+        "abstract": "<p>As current- and next-generation astronomical instruments come online, they will generate an unprecedented deluge of data. Analyzing these data in real time presents unique conceptual and computational challenges, and their long-term storage and archiving is scientifically essential for generating reliable, reproducible results. We present here the real-time processing (RTP) system for the Hydrogen Epoch of Reionization Array (HERA), a radio interferometer endeavoring to provide the first detection of the highly redshifted 21 cm signal from Cosmic Dawn and the Epoch of Reionization by an interferometer. The RTP system consists of analysis routines run on raw data shortly after they are acquired, such as calibration and detection of radio-frequency interference (RFI) events. RTP works closely with the Librarian, the HERA data storage and transfer manager which automatically ingests data and transfers copies to other clusters for post-processing analysis. Both the RTP system and the Librarian are public and open source software, which allows for them to be modified for use in other scientific collaborations. When fully constructed, HERA is projected to generate over 50 terabytes (TB) of data each night, and the RTP system enables the successful scientific analysis of these data.</p>",
+        "comments": [
+            {
+                "name": "abcd12",
+                "text": "das ist ganz gut"
+            },
+            
+            {
+                "Name": "plxy99",
+                "Text": "doch!"
+            }
+        ]
+    },
+
 ]
 
 let reftype=["Harvard","Vancouver","IEEE"]
@@ -148,7 +193,7 @@ app.get('/searchpoint',function(req,resp){
 //create your own citation using app.post
 app.post('/new', function (req,resp){
 
-
+    
 
     console.log("got request");
     console.log(req.body);
