@@ -81,8 +81,9 @@
             </ul>
           </li>
         </ul>
-        <form class="d-flex">
-          <input class="form-control me-2" type="search" placeholder="Search" aria-label="Search">
+        <form class="d-flex" action="http://127.0.0.1:8090/searchpoint" method="get">
+          <input class="form-control me-2" type="search"  placeholder="Search" aria-label="Search" name = "search" required>
+
           <button class="btn btn-outline-success" type="submit">Search</button>
         </form>
       </div>
@@ -246,7 +247,31 @@
     <!-- /END THE FEATURETTES -->
 
   </div><!-- /.container -->
+  <div class="citation form">
+    <h3>Don't know how to cite? Try them out</h3>
+    <form action="http://127.0.0.1:8090/new" method="post" >
+      <p>Reference number<input name="ref_no"></input></p>
+      <p>Initial<input name="initial"></input></p>
+      <p>Surname<input name ="surname"></input></p>
+      <p>Title of journal<input name ="title"></input></p>
+      
 
+      <p><input type="submit"></input></p>
+       <!-- . Surname,  
+        "Title of article,
+        " Title of journal,
+        volume
+        issue number
+        pages
+        Abbreviated month day,
+            year of publication. -->
+
+    </form>
+
+
+
+
+  </div>
 
   <!-- FOOTER -->
   <footer class="container">

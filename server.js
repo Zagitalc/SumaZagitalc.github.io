@@ -3,7 +3,8 @@ const app = express();
 
 app.use(express.static(`client`));
 
-var bodyParser = require('body-parser'); app.use(bodyParser.urlencoded({ extended: false }));
+var bodyParser = require('body-parser');const res = require('express/lib/response');
+ app.use(bodyParser.urlencoded({ extended: false }));
 
 
 let articles = [
@@ -115,18 +116,33 @@ app.get('/articles', function (req, resp){
 app.get('/searchpoint',function(req,resp){
     const search = req.query.search;
     let results = [];
+    //let keyword = []
   
     for (let i = 0; i < articles.length;i++){
   
       let article = articles[i];
       if (article.title.includes(search)){
         //insert at the last postion of the array
-        results.push(article.doi);
-      }
+        results.push(article.title);
+      } 
+    //   else {
+    //     resp.send("no match, please try again later!")
+
+    //   }
       
   
     }
-    resp.send(results);
+    resp.format({
+        "text.html":()=>{
+            resp.send(`
+                <h1 class="example" ></h1> 
+                <h2 >The required Doi of  ${search} is ${results} </h2>  `);
+            
+            
+        }
+        
+    })
+    //resp.send(results);
   });
 
 //create your own citation using app.post
