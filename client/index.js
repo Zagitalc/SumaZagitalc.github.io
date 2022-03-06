@@ -4,13 +4,19 @@ const divContainer = document.getElementById("articlecontainer");
 function loadmain() {
   main.style.display = "block"
   divContainer.style.display = "none"
+  console.log("divContainer.style.display = ", divContainer.style.display)
 
 
 }
 const homebtn = document.getElementById("homebtn")
-homebtn.addEventListener("button", async (event) => {
+homebtn.addEventListener("click", function () {
 
-  loadmain()
+  loadmain();
+  console.log("hello button pressed")
+
+
+
+
 });
 
 
@@ -18,7 +24,7 @@ homebtn.addEventListener("button", async (event) => {
 async function loadJson(params) {
   const response = await fetch('http://127.0.0.1:8090/searchpoint?' + params);
   //method :'GET'
-  console.log("got respose");
+  //console.log("got respose");
   const data = await response.json();
   return data;
 
@@ -85,6 +91,7 @@ sf.addEventListener("submit", async (event) => {
 
     });
     divContainer.style.display = "block"
+    main.style.display = "none"
 
   } catch (e) {
     this.alert(e);
