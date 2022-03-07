@@ -61,8 +61,7 @@ sf.addEventListener("submit", async (event) => {
         `<hr class="featurette-divider">
       <div class="row featurette">
         <div class="col-md-7">
-          <h2 class="featurette-heading">  ${article.title} . <span class="text-muted">It’ll blow your
-              mind.</span></h2>
+          <h3 class="featurette-heading">  ${article.title} . <span class="text-muted">${article.date}.</span></h3>
               
           <p class="lead">${article.highlights} ${article.authors[0]}</p>
           <p class="lead">DOI:<a class="lead" href="${article.doi}"> ${article.doi}</a></p>
@@ -78,14 +77,7 @@ sf.addEventListener("submit", async (event) => {
 
         </div>
 
-
-
-
-
-
-      title: ${article.title} 
-      
-      \n Date: ${article.date} \n `;
+       `;
       //divContainer.appendChild(paragraphElem);
 
 
