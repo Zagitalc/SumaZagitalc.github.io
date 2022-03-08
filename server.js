@@ -11,7 +11,7 @@ app.use(bodyParser.urlencoded({ extended: false }));
 let articles = [
     {
         "id": 1,
-        "title": "Why are we vaccinating children against COVID-19 a?",
+        "title": "Why are we vaccinating children against COVID-19 ?",
         "authors": [
             {
                 "name": "Ronald N.Kostoff",
@@ -51,7 +51,7 @@ let articles = [
     },
     {
         "id": 2,
-        "title": "Total coloring of recursive maximal planar graphs a",
+        "title": "Total coloring of recursive maximal planar graphs ",
         "authors": [
             {
                 "name": "YangyangZhou",
