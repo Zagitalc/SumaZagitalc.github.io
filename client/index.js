@@ -6,20 +6,28 @@ const searchrst = document.getElementById("searchresult")
 
 function loadmain() {
   main.style.display = "block"
+  homartDiv.style.display = "block"
   divContainer.style.display = "none"
-  //console.log("divContainer.style.display = ", divContainer.style.display)
+
+
+}
+function loadsearchrst() {
+  divContainer.style.display = "block"
+  main.style.display = "none"
+  searchrst.style.display = "block"
+  homartDiv.style.display = "none"
 
 
 }
 
 function author(authos) {
   return `
-  <h5>Authors</h5>
-  <ul> 
+  <h5>Authors: 
+  
   ${authos.map(function (author) {
-    return `${author.name} `
-  }).join('')}
-  </ul>
+    return `${author.name}`
+  }).join(', ')}
+  </h5>
   `
 }
 
@@ -67,7 +75,7 @@ sf.addEventListener("submit", async (event) => {
 
     //const divContainer = document.getElementById("articlecontainer");
 
-
+    divContainer.innerHTML = ""
     divContainer.innerHTML =
       `<hr class="featurette-divider">
         <div class="col-md-7">
@@ -80,21 +88,15 @@ sf.addEventListener("submit", async (event) => {
     //searchrst.innerHTML = `<p class="lead">Searched Result</p>`;
 
     articles.forEach(article => {
-      //const paragraphElem = document.createElement('p');
-      //paragraphElem.innerText =
-      // article.authors.forEach(author => {
-      //   authorlist.innerHTML +=
-      //     `authors:${author.name}`
 
-
-      // });
-      homartDiv.innerHTML +=
+      divContainer.innerHTML +=
         `<hr class="featurette-divider">
       <div class="row featurette">
         <div class="col-md-7">
           <h3 class="featurette-heading">  ${article.title} . <span class="text-muted">${article.date}.</span></h3>
               
-          <p class="lead">${article.highlights} ${article.authors[0]}</p>
+          <p class="lead">${article.highlights} </p>
+          <p class="lead">${article.authors ? author(article.authors) : ''}</p>
           <p class="lead">DOI:<a class="lead" href="${article.doi}"> ${article.doi}</a></p>
         </div>
         <div class="col-md-5">
@@ -115,9 +117,7 @@ sf.addEventListener("submit", async (event) => {
 
     });
 
-    divContainer.style.display = "block"
-    main.style.display = "none"
-    searchrst.style.display = "block"
+    loadsearchrst()
     console.log(searchrst.style.display);
   } catch (e) {
     this.alert(e);
