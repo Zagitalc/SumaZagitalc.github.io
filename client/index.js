@@ -12,6 +12,22 @@ function loadmain() {
 
 }
 
+function author(authos) {
+  return `
+  <h5>Authors</h5>
+  <ul> 
+  ${authos.map(function (author) {
+    return `${author.name} `
+  }).join('')}
+  </ul>
+  `
+}
+
+
+
+
+
+
 const homebtns = document.querySelectorAll(".tohome")
   .forEach(homebtn => {
     //const homebtn = document.getElementById("homebtn")
@@ -120,11 +136,15 @@ async function loadarticleJson() {
 
 }
 
+
+
+
+
+
 window.addEventListener("DOMContentLoaded", async (event) => {
 
   event.preventDefault()
-  //const data = new FormData()
-  //const params = new URLSearchParams()
+
 
   try {
     const homearticles = await loadarticleJson();
@@ -156,9 +176,10 @@ window.addEventListener("DOMContentLoaded", async (event) => {
         `<hr class="featurette-divider">
       <div class="row featurette">
         <div class="col-md-7">
-          <h3 class="featurette-heading">  ${article.title} . <span class="text-muted">${article.date}.</span></h3>
+          <h3 class="featurette-heading">  ${article.title} . <h5 class="text-muted">${article.date}.</span></h5>
               
-          <p class="lead">${article.highlights} ${article.authors[0]}</p>
+          <p class="lead">${article.highlights} </p>
+          <p class="lead">${article.authors ? author(article.authors) : ''}</p>
           <p class="lead">DOI:<a class="lead" href="${article.doi}"> ${article.doi}</a></p>
         </div>
         <div class="col-md-5">
