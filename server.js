@@ -8,7 +8,7 @@ var bodyParser = require('body-parser'); const res = require('express/lib/respon
 app.use(bodyParser.urlencoded({ extended: false }));
 
 
-let articles = [
+const articles = [
     {
         "id": 1,
         "title": "Why are we vaccinating children against COVID-19 ?",
@@ -203,7 +203,7 @@ let references = []
 
 
 
-
+//database for all articles
 app.get('/articles', function (req, resp) {
     resp.json(articles);
 
@@ -234,13 +234,38 @@ app.get('/searchpoint', function (req, res) {
 
 });
 
+//load specified articles based on id
+app.get('/reqarticle', function (req, res) {
+
+    for (let i = 0; i < articles.length; i++) {
+
+        let article = articles[i];
+        if (article.title.includes(search)) {
+            //insert at the last postion of the array
+            results.push(article);
+        }
+
+    };
+    res.json();
+
+
+});
+
+
+
+
+
+
+
+
+
 //create your own citation using app.post
-app.post('/new', function (req, resp) {
-
-
+app.post('/newcite', function (req, res) {
 
     console.log("got request");
     console.log(req.body);
+
+
 
     const ref_no = req.body.ref_no;
     const initial = req.body.initial;
@@ -261,17 +286,13 @@ app.post('/new', function (req, resp) {
 
     const referencedata = {
         "reference number": ref_no,
-        "initials": [{
-
-
-            "initial": initials,
-            "surname": surname
-
-        }
-
-
+        "initials": [
+            {
+                "initial": initial,
+                "surname": surname
+            }
         ],
-        "title": title,
+        "title": title
         // "type of publication":pub_type,
         // "date of publication":pub_date,
         // "doi":doi_href,
@@ -281,7 +302,8 @@ app.post('/new', function (req, resp) {
     }
 
     references.push(referencedata);
-    resp.json(references);
+    console.log("here", referencedata);
+    res.json(references);
 
 
 
@@ -291,6 +313,12 @@ app.post('/new', function (req, resp) {
 
 });
 
+// app.get('/newcite', function (req, res) {
+
+
+//     res.json(references);
+
+// });
 
 
 

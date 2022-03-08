@@ -2,6 +2,7 @@ const main = document.getElementById("myhome")
 const divContainer = document.getElementById("articlecontainer");
 const homartDiv = document.getElementById("homearticlediv")
 const searchrst = document.getElementById("searchresult")
+const citeresult = document.getElementById("citeresult")
 
 
 function loadmain() {
@@ -85,7 +86,6 @@ sf.addEventListener("submit", async (event) => {
     `
     console.log(divContainer);
 
-    //searchrst.innerHTML = `<p class="lead">Searched Result</p>`;
 
     articles.forEach(article => {
 
@@ -164,14 +164,7 @@ window.addEventListener("DOMContentLoaded", async (event) => {
     //searchrst.innerHTML = `<p class="lead">Searched Result</p>`;
 
     homearticles.forEach(article => {
-      //const paragraphElem = document.createElement('p');
-      //paragraphElem.innerText =
-      // article.authors.forEach(author => {
-      //   authorlist.innerHTML +=
-      //     `authors:${author.name}`
 
-
-      // });
       homartDiv.innerHTML +=
         `<hr class="featurette-divider">
       <div class="row featurette">
@@ -202,12 +195,59 @@ window.addEventListener("DOMContentLoaded", async (event) => {
 
     });
 
-    //divContainer.style.display = "block"
-    //main.style.display = "none"
-    //searchrst.style.display = "block"
-    //console.log(searchrst.style.display);
+
   } catch (e) {
-    this.alert(e);
+
+    console.log(e);
+
+  }
+});
+
+
+function authordetails(authos) {
+  return `
+  <h5>Authors: 
+  
+  ${authos.map(function (author) {
+    return `${author.initial}, ${author.surname}`
+  }).join(', ')}
+  </h5>
+  `
+}
+
+
+
+
+async function loadciteJson() {
+  let response = await fetch('http://127.0.0.1:8090/newcite', { method: 'POST' })
+  //{ method: "post" });
+
+  const data = await response.json();
+  //console.log(data);
+  return data;
+
+}
+// try to fetch get element by id
+//return the html content of the related articles
+const citeform = document.getElementById("citationform")
+citeform.addEventListener('submit', async function (event) {
+
+
+  event.preventDefault()
+
+  try {
+
+    const citedata = await loadciteJson();
+    citeresult.innerHTML = ""
+    console.log("got request")
+    //console.log(citedata);
+
+    citedata.forEach(citeinfo => {
+      citeresult.innerHTML += `<h3>this is the response data[${citeinfo.ref_no}], initials are${citeinfo.initials},
+       initials${authordetails(citeinfo.initials)}, title ${citeinfo.title}</h3>`;
+    });
+  } catch (e) {
+
     console.log(e);
 
   }
@@ -215,23 +255,6 @@ window.addEventListener("DOMContentLoaded", async (event) => {
 
 
 
-
-
-
-
-// try to fetch get element by id
-//return the html content of the related articles
-
-window.addEventListener('later', async function (event) {
-  try {
-    let response = await fetch('http://127.0.0.1:8090/new');
-    let body = await response.text();
-    document.getElementById('content').innerHTML = body;
-  } catch (e) {
-    this.alert(e);
-
-  }
-});
 
 
 
