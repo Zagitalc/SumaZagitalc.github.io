@@ -218,39 +218,64 @@ function authordetails(authos) {
 
 
 
-async function loadciteJson() {
-  let response = await fetch('http://127.0.0.1:8090/newcite', { method: 'POST' })
-  //{ method: "post" });
 
-  const data = await response.json();
-  //console.log(data);
-  return data;
-
-}
 // try to fetch get element by id
 //return the html content of the related articles
-const citeform = document.getElementById("citationform")
-citeform.addEventListener('submit', async function (event) {
+const citeform = document.getElementById("submit_things")
+citeform.addEventListener("click", async function (event) {
+  event.preventDefault();
 
 
-  event.preventDefault()
+  let ref_no = document.getElementById('ref_no').value;
+  let initial = document.getElementById('initial').value;
+  let surname = document.getElementById('surname').value;
+  let title = document.getElementById('title').value;
+  console.log(ref_no);
+  let referencedata = {
+    'referencenumber': ref_no, 'initial': initial, 'surname': surname, 'title': title
 
-  try {
+  };
+  //references.push(referencedata);
+  console.log('ref', referencedata);
 
-    const citedata = await loadciteJson();
-    citeresult.innerHTML = ""
-    console.log("got request")
-    //console.log(citedata);
 
-    citedata.forEach(citeinfo => {
-      citeresult.innerHTML += `<h3>this is the response data[${citeinfo.ref_no}], initials are${citeinfo.initials},
-       initials${authordetails(citeinfo.initials)}, title ${citeinfo.title}</h3>`;
-    });
-  } catch (e) {
+  let response = await fetch('http://127.0.0.1:8090/newcite', {
+    method: 'POST',
+    headers: {
+      'Content-Type': 'application/json'
+    },
+    body: JSON.stringify(referencedata)
+  });
+  console.log("resp", response);
 
-    console.log(e);
+  let body = await response.json();
+  console.log('body is', body);
 
+  //return data;
+
+
+  //try {
+
+  //const citedata = await loadciteJson();
+  citeresult.innerHTML = "";
+  console.log("got request")
+  console.log(body);
+  //console.log(citedata);
+
+  // citedata.forEach(citeinfo => {
+  //   citeresult.innerHTML += `<h3>this is the response data[${citeinfo.ref_no}], initials are${citeinfo.initials},
+  //    initials${authordetails(citeinfo.initials)}, title ${citeinfo.title}</h3>`;
+  // });
+  for (let citeitem of body) {
+    let item = document.createElement('li')
+    item.innerHTML = citeitem;
+    citeresult.appendChild(item);
   }
+  //} catch (e) {
+
+  //console.log(e);
+
+  //}
 });
 
 

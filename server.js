@@ -5,6 +5,7 @@ const app = express();
 app.use(express.static(`client`));
 
 var bodyParser = require('body-parser'); const res = require('express/lib/response');
+const { init } = require('express/lib/application');
 app.use(bodyParser.urlencoded({ extended: false }));
 
 
@@ -195,9 +196,9 @@ const articles = [
 
 ]
 
-let reftype = ["Harvard", "Vancouver", "IEEE"]
+let reftype = ["Harvard", "Vancouver", "IEEE"];
+let references = [];
 
-let references = []
 
 
 
@@ -263,46 +264,51 @@ app.get('/reqarticle', function (req, res) {
 app.post('/newcite', function (req, res) {
 
     console.log("got request");
-    console.log(req.body);
+
+    console.log("req body", req.body);
 
 
 
-    const ref_no = req.body.ref_no;
+    const ref_no = req.body.referencenumber;
+    console.log(ref_no);
     const initial = req.body.initial;
     const surname = req.body.surname;
-    const author = {
-
-
-
-        "initial": initial,
-        "surname": surname
-
-
-    };
-    const initials = [];
-    initials.push(author);
     const title = req.body.title;
+    referencedata = "[" + ref_no + "] initial" + initial + ", " + surname + ", " + title + " and the remaining see for yourself!jk"
+    // const author = {
+    console.log("reference data is", referencedata);
 
 
-    const referencedata = {
-        "reference number": ref_no,
-        "initials": [
-            {
-                "initial": initial,
-                "surname": surname
-            }
-        ],
-        "title": title
-        // "type of publication":pub_type,
-        // "date of publication":pub_date,
-        // "doi":doi_href,
-        // "url":href
+    //     "initial": initial,
+    //     "surname": surname
 
 
-    }
+    // };
+    // const initials = [];
+    // initials.push(author);
+    // const title = req.body.title;
+
+
+    // const referencedata = {
+    //     "reference number": ref_no,
+    //     "initials": [
+    //         {
+    //             "initial": initial,
+    //             "surname": surname
+    //         }
+    //     ],
+    //     "title": title
+    //     // "type of publication":pub_type,
+    //     // "date of publication":pub_date,
+    //     // "doi":doi_href,
+    //     // "url":href
+
+
+    // }
 
     references.push(referencedata);
-    console.log("here", referencedata);
+    console.log("ref data is", referencedata);
+    console.log("n server .js", references);
     res.json(references);
 
 
