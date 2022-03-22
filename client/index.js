@@ -231,7 +231,7 @@ function addFields() {
     // Create an <input> element, set its type and name attributes
     var input = document.createElement("input");
     input.type = "text";
-    input.name = "surname" + i;
+    input.name = "surname";
     input.id = 'surname'
     container.appendChild(input);
 
@@ -245,7 +245,7 @@ function addFields() {
     // Create an <input> element, set its type and name attributes
     var input = document.createElement("input");
     input.type = "text";
-    input.name = "initial" + i;
+    input.name = "initial";
     input.id = 'initial'
     container.appendChild(input);
 
@@ -270,8 +270,40 @@ let citeform = document.getElementById("submit_citation");
 citeform.addEventListener("click", async function (event) {
   event.preventDefault();
   let ref_no = document.getElementById('refno').value;
-  let initial = document.getElementById('initial').value;
-  let surname = document.getElementById('surname').value;
+  // let initial = document.getElementById('initial').value;
+  // let surname = document.getElementById('surname').value;
+
+  let initial = document.getElementsByName('initial');
+
+  let surname = document.getElementsByName('surname');
+
+  let authors = []
+
+  let initval = ''
+  for (var i = 0; i < initial.length; i++) {
+    let author = {
+      'initial': initial[i].value,
+      'surname': surname[i].value
+    };
+
+
+    authors.push(author)
+  };
+
+  // let surval = ''
+  // for (var i = 0; i < surname.length; i++) {
+  //   surval += surname[i].value;
+
+
+
+
+
+  console.log('initial', initval)
+
+
+
+
+
   let title = document.getElementById('title').value;
   let volume = document.getElementById('vol').value;
   let issue = document.getElementById('i').value;
@@ -280,19 +312,14 @@ citeform.addEventListener("click", async function (event) {
   let day = document.getElementById('day').value;
   let year = document.getElementById('year').value;
   let doi = document.getElementById('doi').value;
-  let authors = []
 
-  let author = {
-    'initial': initial,
-    'surname': surname,
-  };
 
-  authors.push(author)
+
+  console.log(author)
 
   let referencedata = {
     'referencenumber': ref_no,
-    'initial': initial,
-    'surname': surname,
+
     'title': title,
     'vol': volume,
     'issue': issue,

@@ -271,8 +271,8 @@ app.post('/newcite', function (req, res) {
 
     const referencenumber = req.body.referencenumber;
 
-    const initial = req.body.initial.slice(0, 1).toUpperCase();
-    const surname = req.body.surname.slice(0, 1).toUpperCase();
+    const authors = req.body.authors
+
     const title = req.body.title;
     const volume = req.body.vol;
     const issue = req.body.issue;
@@ -282,41 +282,25 @@ app.post('/newcite', function (req, res) {
     const year = req.body.year;
     const doi = req.body.doi;
 
+    function mapauthor(authors) {
+        return `
+        ${authors.map(function (author) {
+            return `${[author.initial.slice(0, 1).toUpperCase(), author.surname.slice(0, 1).toUpperCase()].filter(Boolean).join(', ')}
+        `
+        }).filter(Boolean).join('. ')}
+        `
+    };
 
+    //initial + ", " + surname
+    //+ '. "' +
 
-    referencedata = "[" + referencenumber + "] " + initial + ", " + surname
-        + '. "' + title + '", vol. ' + volume + ", no. " + issue + ", pp. " + pageno
+    referencedata = "[" + referencenumber + "] " + mapauthor(authors) + '. ' + title + '", vol. ' + volume + ", no. " + issue + ", pp. " + pageno
         + month + ". " + day + ". " + year + ". doi:\n" + doi
     // const author = {
     console.log("reference data is", referencedata);
 
 
-    //     "initial": initial,
-    //     "surname": surname
 
-
-    // };
-    // const initials = [];
-    // initials.push(author);
-    // const title = req.body.title;
-
-
-    // const referencedata = {
-    //     "reference number": ref_no,
-    //     "initials": [
-    //         {
-    //             "initial": initial,
-    //             "surname": surname
-    //         }
-    //     ],
-    //     "title": title
-    //     // "type of publication":pub_type,
-    //     // "date of publication":pub_date,
-    //     // "doi":doi_href,
-    //     // "url":href
-
-
-    // }
 
     references.push(referencedata);
     console.log("ref data is", referencedata);
