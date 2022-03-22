@@ -215,29 +215,96 @@ function authordetails(authos) {
   `
 }
 
+//add form fields with reference to https://stackoverflow.com/questions/14853779/adding-input-elements-dynamically-to-form
+function addFields() {
+  // Generate a dynamic number of inputs
+  var number = document.getElementById("selectaddfield").value;
+  // Get the element where the inputs will be added to
+  var container = document.getElementById("inputcontainer");
+  // Remove every children it had before
+  while (container.hasChildNodes()) {
+    container.removeChild(container.lastChild);
+  }
+  for (i = 0; i < number; i++) {
+    // Append a node with a random text
+    container.appendChild(document.createTextNode("surname " + (i + 1)));
+    // Create an <input> element, set its type and name attributes
+    var input = document.createElement("input");
+    input.type = "text";
+    input.name = "surname" + i;
+    input.id = 'surname'
+    container.appendChild(input);
+
+
+
+    // Append a line break 
+    container.appendChild(document.createElement("br"));
+    container.appendChild(document.createElement("br"));
+
+    container.appendChild(document.createTextNode("initial " + (i + 1)));
+    // Create an <input> element, set its type and name attributes
+    var input = document.createElement("input");
+    input.type = "text";
+    input.name = "initial" + i;
+    input.id = 'initial'
+    container.appendChild(input);
+
+
+
+    // Append a line break 
+    container.appendChild(document.createElement("br"));
+    container.appendChild(document.createElement("br"));
+
+
+    console.log('container', container);
+  }
+}
 
 
 
 
-// try to fetch get element by id
-//return the html content of the related articles
-const citeform = document.getElementById("submit_things")
+
+// post a citation in json
+// returned a cited json string
+let citeform = document.getElementById("submit_citation");
 citeform.addEventListener("click", async function (event) {
   event.preventDefault();
-
-
-  let ref_no = document.getElementById('ref_no').value;
+  let ref_no = document.getElementById('refno').value;
   let initial = document.getElementById('initial').value;
   let surname = document.getElementById('surname').value;
   let title = document.getElementById('title').value;
-  console.log(ref_no);
+  let volume = document.getElementById('vol').value;
+  let issue = document.getElementById('i').value;
+  let pageno = document.getElementById('pp').value
+  let month = document.getElementById('mon').value;
+  let day = document.getElementById('day').value;
+  let year = document.getElementById('year').value;
+  let doi = document.getElementById('doi').value;
+  let authors = []
+
+  let author = {
+    'initial': initial,
+    'surname': surname,
+  };
+
+  authors.push(author)
+
   let referencedata = {
-    'referencenumber': ref_no, 'initial': initial, 'surname': surname, 'title': title
+    'referencenumber': ref_no,
+    'initial': initial,
+    'surname': surname,
+    'title': title,
+    'vol': volume,
+    'issue': issue,
+    'pp': pageno,
+    'month': month,
+    'day': day,
+    'year': year,
+    'doi': doi,
+    'authors': authors
 
   };
   //references.push(referencedata);
-  console.log('ref', referencedata);
-
 
   let response = await fetch('http://127.0.0.1:8090/newcite', {
     method: 'POST',
@@ -246,36 +313,30 @@ citeform.addEventListener("click", async function (event) {
     },
     body: JSON.stringify(referencedata)
   });
-  console.log("resp", response);
 
   let body = await response.json();
   console.log('body is', body);
 
-  //return data;
+  try {
+    citeresult.innerHTML = "Your Citation Here:";
+    console.log("got request")
+    console.log(body);
+    //console.log(citedata);
 
+    // citedata.forEach(citeinfo => {
+    //   citeresult.innerHTML += `<h3>this is the response data[${citeinfo.ref_no}], initials are${citeinfo.initials},
+    //    initials${authordetails(citeinfo.initials)}, title ${citeinfo.title}</h3>`;
+    // });
+    for (let citeitem of body) {
+      let item = document.createElement('li')
+      item.innerHTML = citeitem;
+      citeresult.appendChild(item);
+    }
+  } catch (e) {
 
-  //try {
+    console.log(e);
 
-  //const citedata = await loadciteJson();
-  citeresult.innerHTML = "";
-  console.log("got request")
-  console.log(body);
-  //console.log(citedata);
-
-  // citedata.forEach(citeinfo => {
-  //   citeresult.innerHTML += `<h3>this is the response data[${citeinfo.ref_no}], initials are${citeinfo.initials},
-  //    initials${authordetails(citeinfo.initials)}, title ${citeinfo.title}</h3>`;
-  // });
-  for (let citeitem of body) {
-    let item = document.createElement('li')
-    item.innerHTML = citeitem;
-    citeresult.appendChild(item);
   }
-  //} catch (e) {
-
-  //console.log(e);
-
-  //}
 });
 
 

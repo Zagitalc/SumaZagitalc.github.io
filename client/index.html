@@ -312,14 +312,39 @@
       <div class="row align-items-start">
       <div class="col">
         <h3 >Don't know how to cite? Try them out</h3>
-        <form action="http://127.0.0.1:8090/newcite" method="post" >
+        <form  action="http://127.0.0.1:8090/newcite" method="post" >
         
-          <p>Reference number<input id="ref_no"></input></p>
-          <p>Initial<input id="initial"></input></p>
-          <p>Surname<input id="surname"></input></p>
-          <p>Title of journal<input id="title"></input></p>
+          <p>Reference number (IEEE)    <input id="refno"></input></p>
+          <p>Choose number of authors</p>
+          <select id = "selectaddfield" name = "selectaddfield" onchange="addFields()" class="form-select form-select-lg mb-3" aria-label=".form-select-lg example">
+            
+            <!-- <option selected>Open this select menu</option> -->
+            <option value="1">One</option>
+            <option value="2">Two</option>
+            <option value="3">Three</option>
+          </select>
+          <div id="inputcontainer"></div>
+          <p>Initial                    <input id="initial"></input></p>
+          <p>Surname                    <input id="surname"></input></p>
+          <p>Initial                    <input id="initial"></input></p>
+          <p>Surname                    <input id="surname"></input></p>
+          <p>Initial                    <input id="initial"></input></p>
+          <p>Surname                    <input id="surname"></input></p>
+          <p>Title of journal           <input id="title"></input></p>
+          <p>volume                     <input id="vol"></input></p>
+          <p>Issue number               <input id="i"></input></p>
+          <p>page number                <input id="pp"></input></p>
+          <p>Month                      <input id="mon"></input></p>
+          <p>Date                       <input id="day"></input></p>
+          <p>Year of Publication        <input id="year"></input></p>
+          <p>DOI                        <input id="doi"></input></p>
+          
+          <!-- <a href="#" id="filldetails" onclick="addFields()">Fill Details</a> -->
 
-          <p><input type="submit" id ="submit_things"></input></p>
+
+
+
+          <p><input type="submit" id ="submit_citation"></input></p>
           <!-- . Surname,  
           "Title of article,
           " Title of journal,
@@ -330,7 +355,11 @@
               year of publication. -->
 
         </form>
+
         </div>
+
+        
+
         <div class="col" id="citeresult">
           
           <h3>your citation will be shown here:</h3>
