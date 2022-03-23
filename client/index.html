@@ -211,98 +211,7 @@
       </div><!-- /.row -->
 
 
-      <!-- START THE FEATURETTES -->
-
-    
-
-
-
-      <hr class="featurette-divider">
-
-      <div class="row featurette">
-        <div class="col-md-7">
-          <h2 class="featurette-heading"> Trending article of the Month. <span class="text-muted">It’ll blow your
-              mind.</span></h2>
-          <p class="lead">Some great placeholder content for the first featurette here. Imagine some exciting prose
-            here. Click to see more.</p>
-        </div>
-        <div class="col-md-5">
-          <svg class="bd-placeholder-img bd-placeholder-img-lg featurette-image img-fluid mx-auto" width="500"
-            height="500" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="Placeholder: 500x500"
-            preserveAspectRatio="xMidYMid slice" focusable="false">
-            <title>Placeholder</title>
-            <rect width="100%" height="100%" fill="#eee" /><text x="50%" y="50%" fill="#aaa" dy=".3em"></text>
-          </svg>
-
-        </div>
-      </div>
-
-      <hr class="featurette-divider">
-
-
-
-
-      <div class="row featurette">
-        <div class="col-md-7 order-md-2">
-          <h2 class="featurette-heading">Why are we vaccinating children against COVID-19? <span class="text-muted">See
-              for yourself.</span></h2>
-          <p class="lead">click more->new html page->show details
-            <br>
-            <br>
-            such as "peer reviewed or not"
-            <br>
-            <br>
-            doi and path to download the article
-            <br>
-            <br>
-            Abstract (100 words)
-
-
-            <br>
-          
-            Ronald N.Kostoff a DanielaCalina b DarjaKanduccMichael B.BriggsdPanayiotisVlachoyiannopouloseAndrey
-            A.SvistunovfAristidisTsatsakisg
-          </div>
-
-          <br>
-          Copy DOI
-          <a href="https://doi.org/10.1016/j.toxrep.2021.08.010">https://doi.org/10.1016/j.toxrep.2021.08.010</a>
-
-          <br>
-          Download pdf
-          </p>
-        </div>
-        <div class="col-md-5 order-md-1">
-          <svg class="bd-placeholder-img bd-placeholder-img-lg featurette-image img-fluid mx-auto" width="500"
-            height="500" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="Placeholder: 500x500"
-            preserveAspectRatio="xMidYMid slice" focusable="false">
-            <title>Placeholder</title>
-            <rect width="100%" height="100%" fill="#eee" /><text x="50%" y="50%" fill="#aaa" dy=".3em">500x500</text>
-          </svg>
-
-        </div>
-      </div>
-
-      <hr class="featurette-divider">
-
-      <div class="row featurette">
-        <div class="col-md-7">
-          <h2 class="featurette-heading">And lastly, this one. <span class="text-muted">Checkmate.</span></h2>
-          <p class="lead">And yes, this is the last block of representative placeholder content. Again, not really
-            intended to be actually read, simply here to give you a better view of what this would look like with some
-            actual content. Your content.</p>
-        </div>
-        <div class="col-md-5">
-          <svg class="bd-placeholder-img bd-placeholder-img-lg featurette-image img-fluid mx-auto" width="500"
-            height="500" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="Placeholder: 500x500"
-            preserveAspectRatio="xMidYMid slice" focusable="false">
-            <title>Placeholder</title>
-            <rect width="100%" height="100%" fill="#eee" /><text x="50%" y="50%" fill="#aaa" dy=".3em">500x500</text>
-          </svg>
-
-        </div>
-      </div>
-
+      
       <hr class="featurette-divider">
 
       <!-- /END THE FEATURETTES -->
@@ -312,7 +221,7 @@
       <div class="row align-items-start">
       <div class="col">
         <h3 >Don't know how to cite? Try them out</h3>
-        <form  action="http://127.0.0.1:8090/newcite" method="post" >
+        <form  name='citationform' action="http://127.0.0.1:8090/newcite" method="post" >
         
           <p>Reference number (IEEE)    <input id="refno"></input></p>
           <p>Choose number of authors</p>
@@ -325,14 +234,14 @@
           </select>
           <div id="inputcontainer"></div>
           
-          <p>Title of journal           <input id="title"></input></p>
-          <p>volume                     <input id="vol"></input></p>
-          <p>Issue number               <input id="i"></input></p>
-          <p>page number                <input id="pp"></input></p>
-          <p>Month                      <input id="mon"></input></p>
-          <p>Date                       <input id="day"></input></p>
-          <p>Year of Publication        <input id="year"></input></p>
-          <p>DOI                        <input id="doi"></input></p>
+          <p>Title of journal           <input name = 'input' id="title"></input></p>
+          <p>volume                     <input name = 'sinput'id="vol"></input></p>
+          <p>Issue number               <input name = 'sinput'id="i"></input></p>
+          <p>page number                <input name = 'sinput'id="pp"></input></p>
+          <p>Month                      <input name = 'sinput'id="mon"></input></p>
+          <p>Date                       <input name = 'sinput'id="day"></input></p>
+          <p>Year of Publication        <input name = 'sinput'id="year"></input></p>
+          <p>DOI                        <input name = 'sinput'id="doi"></input></p>
           
           <!-- <a href="#" id="filldetails" onclick="addFields()">Fill Details</a> -->
 

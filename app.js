@@ -36,7 +36,10 @@ const articles = [
 
 
         "image": "/pictures/covidarticle.jpg",
-        "highlights": "<p>Bulk of COVID-19 per capita deaths occur in elderly with high comorbidities <Br> <Br>Per capita COVID-19 deaths are negligible in children.</p>",
+        "highlights": `<p>Bulk of COVID-19 per capita deaths occur in elderly
+         with high comorbidities 
+         <Br> 
+         <Br>Per capita COVID-19 deaths are negligible in children.</p>`,
         "abstract": "blahblahblah</p>",
         "comments": [
             {
@@ -303,9 +306,9 @@ app.post('/newcite', function (req, res) {
 
 
     references.push(referencedata);
-    console.log("ref data is", referencedata);
+
     console.log("n server .js", references);
-    res.json(references);
+    res.json(references.at(-1));
 });
 
 

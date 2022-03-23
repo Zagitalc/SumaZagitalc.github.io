@@ -53,6 +53,89 @@ const homebtns = document.querySelectorAll(".tohome")
 
   });
 
+//load article on homepage
+async function loadarticleJson() {
+  const response = await fetch('http://127.0.0.1:8090/articles');
+
+  const data = await response.json();
+  return data;
+
+}
+
+
+window.addEventListener("DOMContentLoaded", async (event) => {
+
+  event.preventDefault()
+
+
+  try {
+    const homearticles = await loadarticleJson();
+
+    //const divContainer = document.getElementById("articlecontainer");
+
+
+    divContainer.innerHTML =
+      `<hr class="featurette-divider">
+        <div class="col-md-7">
+          <h3  class="text-center"> Search Results.</h3>
+              
+        </div>
+    `
+    //console.log(divContainer);
+
+    homearticles.forEach(article => {
+
+      homartDiv.innerHTML +=
+        `<hr class="featurette-divider">
+      <div class="row featurette">
+        <div class="col-md-7">
+          <h3 class="featurette-heading">  ${article.title} . <h5 class="text-muted">${article.date}.</span></h5>
+              
+          <p class="lead">${article.highlights} </p>
+          <p class="lead">${article.authors ? author(article.authors) : ''}</p>
+          <p class="lead">DOI:<a class="lead" href="${article.doi}"> ${article.doi}</a></p>
+        </div>
+        <div class="col-md-5">
+          <img  class="bd-placeholder-img bd-placeholder-img-lg featurette-image img-fluid mx-auto" width="500"
+          height="500"
+             src="${article.image}"  aria-label="Placeholder: 500x500"
+            preserveAspectRatio="xMidYMid slice" focusable="false">
+            
+            <rect width="100%" height="100%" fill="#eee" /><text x="50%" y="50%" fill="#aaa" dy=".3em"></text>
+          </img>
+          </br>
+          </br>
+          <p><a class="btn btn-lg btn-primary" href="#">Load More</a></p>
+        </div>
+
+       `;
+
+
+
+
+    });
+
+
+  } catch (e) {
+
+    console.log(e);
+
+  }
+});
+
+
+function authordetails(authos) {
+  return `
+  <h5>Authors: 
+  
+  ${authos.map(function (author) {
+    return `${author.initial}, ${author.surname}`
+  }).join(', ')}
+  </h5>
+  `
+}
+
+
 
 //search and load related articles
 async function loadJson(params) {
@@ -107,6 +190,9 @@ sf.addEventListener("submit", async (event) => {
             
             <rect width="100%" height="100%" fill="#eee" /><text x="50%" y="50%" fill="#aaa" dy=".3em"></text>
           </img>
+          </br>
+          </br>
+          <p><a class="btn btn-lg btn-primary" href="#">Load More</a></p>
 
         </div>
 
@@ -126,102 +212,14 @@ sf.addEventListener("submit", async (event) => {
   }
 });
 
-//load article on homepage
-async function loadarticleJson() {
-  const response = await fetch('http://127.0.0.1:8090/articles');
-  //method :'GET'
-  //console.log("got respose");
-  const data = await response.json();
-  return data;
-
-}
-
-
-
-
-
-
-window.addEventListener("DOMContentLoaded", async (event) => {
-
-  event.preventDefault()
-
-
-  try {
-    const homearticles = await loadarticleJson();
-
-    //const divContainer = document.getElementById("articlecontainer");
-
-
-    divContainer.innerHTML =
-      `<hr class="featurette-divider">
-        <div class="col-md-7">
-          <h3  class="text-center"> Search Results.</h3>
-              
-        </div>
-    `
-    //console.log(divContainer);
-
-    //searchrst.innerHTML = `<p class="lead">Searched Result</p>`;
-
-    homearticles.forEach(article => {
-
-      homartDiv.innerHTML +=
-        `<hr class="featurette-divider">
-      <div class="row featurette">
-        <div class="col-md-7">
-          <h3 class="featurette-heading">  ${article.title} . <h5 class="text-muted">${article.date}.</span></h5>
-              
-          <p class="lead">${article.highlights} </p>
-          <p class="lead">${article.authors ? author(article.authors) : ''}</p>
-          <p class="lead">DOI:<a class="lead" href="${article.doi}"> ${article.doi}</a></p>
-        </div>
-        <div class="col-md-5">
-          <img  class="bd-placeholder-img bd-placeholder-img-lg featurette-image img-fluid mx-auto" width="500"
-          height="500"
-             src="${article.image}"  aria-label="Placeholder: 500x500"
-            preserveAspectRatio="xMidYMid slice" focusable="false">
-            
-            <rect width="100%" height="100%" fill="#eee" /><text x="50%" y="50%" fill="#aaa" dy=".3em"></text>
-          </img>
-          </br>
-          </br>
-          <p><a class="btn btn-lg btn-primary" href="#">Load More</a></p>
-        </div>
-
-       `;
-
-
-
-
-    });
-
-
-  } catch (e) {
-
-    console.log(e);
-
-  }
-});
-
-
-function authordetails(authos) {
-  return `
-  <h5>Authors: 
-  
-  ${authos.map(function (author) {
-    return `${author.initial}, ${author.surname}`
-  }).join(', ')}
-  </h5>
-  `
-}
 
 //add form fields with reference to https://stackoverflow.com/questions/14853779/adding-input-elements-dynamically-to-form
 function addFields() {
-  // Generate a dynamic number of inputs
+
   var number = document.getElementById("selectaddfield").value;
-  // Get the element where the inputs will be added to
+
   var container = document.getElementById("inputcontainer");
-  // Remove every children it had before
+
   while (container.hasChildNodes()) {
     container.removeChild(container.lastChild);
   }
@@ -270,8 +268,7 @@ let citeform = document.getElementById("submit_citation");
 citeform.addEventListener("click", async function (event) {
   event.preventDefault();
   let ref_no = document.getElementById('refno').value;
-  // let initial = document.getElementById('initial').value;
-  // let surname = document.getElementById('surname').value;
+
 
   let initial = document.getElementsByName('initial');
 
@@ -298,7 +295,7 @@ citeform.addEventListener("click", async function (event) {
 
 
 
-  console.log('initial', initval)
+
 
 
 
@@ -315,7 +312,7 @@ citeform.addEventListener("click", async function (event) {
 
 
 
-  console.log(author)
+
 
   let referencedata = {
     'referencenumber': ref_no,
@@ -332,39 +329,59 @@ citeform.addEventListener("click", async function (event) {
 
   };
   //references.push(referencedata);
+  if (validateForm(title, volume, issue) != false) {
+    let response = await fetch('http://127.0.0.1:8090/newcite', {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json'
+      },
+      body: JSON.stringify(referencedata)
+    });
 
-  let response = await fetch('http://127.0.0.1:8090/newcite', {
-    method: 'POST',
-    headers: {
-      'Content-Type': 'application/json'
-    },
-    body: JSON.stringify(referencedata)
-  });
+    let body = await response.json();
+    console.log('body is', body);
 
-  let body = await response.json();
-  console.log('body is', body);
+    try {
 
-  try {
-    citeresult.innerHTML = "Your Citation Here:";
-    console.log("got request")
-    console.log(body);
-    //console.log(citedata);
+      citeresult.innerHTML = "Your Citation Here:";
+      console.log("got request")
+      console.log(body);
+      //console.log(citedata);
 
-    // citedata.forEach(citeinfo => {
-    //   citeresult.innerHTML += `<h3>this is the response data[${citeinfo.ref_no}], initials are${citeinfo.initials},
-    //    initials${authordetails(citeinfo.initials)}, title ${citeinfo.title}</h3>`;
-    // });
-    for (let citeitem of body) {
+
+      //only return the last updated list of referencedata to index.js
+      console.log('body.length', body.length)
+
       let item = document.createElement('li')
-      item.innerHTML = citeitem;
+      item.innerHTML = ''
+      item.innerHTML = body;
       citeresult.appendChild(item);
+
+    } catch (e) {
+
+      console.log(e);
+
     }
-  } catch (e) {
-
-    console.log(e);
-
   }
 });
+
+function validateForm(title, volume, issue) {
+
+  // var b = document.forms["citationform"]['initial'];
+  // var c = document.forms["citationform"]['surname'];
+  // if (b, c != null) {
+  //   if (b.value, c.value == "") {
+  //     alert("Name must be filled out");
+  //     return false;
+  //   }
+  // }
+
+  if (title, volume, issue == "") {
+    alert("Name must be filled out");
+    return false;
+  }
+
+}
 
 
 
