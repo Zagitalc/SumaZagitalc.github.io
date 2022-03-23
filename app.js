@@ -90,7 +90,13 @@ const articles = [
 
 
         "image": "/pictures/A-3-connected-maximal-planar-graph-with-d-5-First-suppose-that-d-T-5-In-this-case.png",
-        "highlights": "<p>Bulk of COVID-19 per capita deaths occur in elderly with high comorbidities <Br> <Br>Per capita COVID-19 deaths are negligible in children.</p>",
+        "highlights": `</p>Total Coloring Conjecture holds for recursive maximal planar graphs.
+        <br>
+        <br>
+        (2,2)-recursive maximal planar graphs are totally (Δ + 1)-colorable.
+        <br>
+        <br>
+        Linear time algorithms are given for total coloring of recursive maximal planar graphs and (2,2)-recursive maximal planar graphs, respectively</p>`,
         "abstract": "blahblahblah</p>",
         "comments": [
             {
