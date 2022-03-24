@@ -219,57 +219,62 @@
     </div>
     <div class="citation form container" id="citationform"><a  name="cite"></a>
       <div class="row align-items-start">
-      <div class="col">
-        <h3 >Don't know how to cite? Try them out</h3>
-        <form  name='citationform' action="http://127.0.0.1:8090/newcite" method="post" >
-        
-          <p>Reference number (IEEE)    <input id="refno"></input></p>
-          <p>Choose number of authors</p>
-          <select id = "selectaddfield" name = "selectaddfield" onchange="addFields()" class="form-select form-select-lg mb-3" aria-label=".form-select-lg example">
+        <div class="col">
+          <h3 >Don't know how to cite? Try them out</h3>
+          <form  name='citationform' action="http://127.0.0.1:8090/newcite" method="post" >
+          
+            <p>Reference number (IEEE)    <input id="refno"></input></p>
+            <p>Choose number of authors</p>
+            <select id = "selectaddfield" name = "selectaddfield" onchange="addFields()" class="form-select form-select-lg mb-3" aria-label=".form-select-lg example">
+              
+              <!-- <option selected>Open this select menu</option> -->
+              <option value="1">One</option>
+              <option value="2">Two</option>
+              <option value="3">Three</option>
+            </select>
+            <div id="inputcontainer"></div>
             
-            <!-- <option selected>Open this select menu</option> -->
-            <option value="1">One</option>
-            <option value="2">Two</option>
-            <option value="3">Three</option>
-          </select>
-          <div id="inputcontainer"></div>
-          
-          <p>Title of journal           <input name = 'input' id="title"></input></p>
-          <p>volume                     <input name = 'sinput'id="vol"></input></p>
-          <p>Issue number               <input name = 'sinput'id="i"></input></p>
-          <p>page number                <input name = 'sinput'id="pp"></input></p>
-          <p>Month                      <input name = 'sinput'id="mon"></input></p>
-          <p>Date                       <input name = 'sinput'id="day"></input></p>
-          <p>Year of Publication        <input name = 'sinput'id="year"></input></p>
-          <p>DOI                        <input name = 'sinput'id="doi"></input></p>
-          
-          <!-- <a href="#" id="filldetails" onclick="addFields()">Fill Details</a> -->
+            <p>Title of journal           <input name = 'input' id="title"></input></p>
+            <p>volume                     <input name = 'sinput'id="vol"></input></p>
+            <p>Issue number               <input name = 'sinput'id="i"></input></p>
+            <p>page number                <input name = 'sinput'id="pp"></input></p>
+            <p>Month                      <input name = 'sinput'id="mon"></input></p>
+            <p>Date                       <input name = 'sinput'id="day"></input></p>
+            <p>Year of Publication        <input name = 'sinput'id="year"></input></p>
+            <p>DOI                        <input name = 'sinput'id="doi"></input></p>
+            
+            <!-- <a href="#" id="filldetails" onclick="addFields()">Fill Details</a> -->
 
 
 
 
-          <p><input type="submit" id ="submit_citation"></input></p>
-          <!-- . Surname,  
-          "Title of article,
-          " Title of journal,
-          volume
-          issue number
-          pages
-          Abbreviated month day,
-              year of publication. -->
+            <p><input type="submit" id ="submit_citation"></input></p>
+            <!-- . Surname,  
+            "Title of article,
+            " Title of journal,
+            volume
+            issue number
+            pages
+            Abbreviated month day,
+                year of publication. -->
 
-        </form>
+          </form>
 
         </div>
 
-        
-
-        <div class="col" id="citeresult">
-          
-          <h3>your citation will be shown here:</h3>
-          
+            <div class="col" >
+              <div class="card" >
+                <div class="card-body" id="citeresult">
+                  <h3 class="card-title">your citation will be shown here:</h3>
+                  
+                  <p class="card-text">Some quick example text to build on the card title and make up the bulk of the card's content.</p>
+                  
+                  <a  class="card-link tohome">redo</a>
+                </div>
+              </div>
+            </div>
         </div>
-        
+          
       </div>
     </div>
 

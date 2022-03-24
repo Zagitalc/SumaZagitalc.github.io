@@ -182,12 +182,7 @@ function showFull() {
             <p class="lead">${fullarticle.abstract}</p>
         </div
         
-      </div >
-      
-      
-      
-      
-      
+      </div > 
       `
       console.log(template);
       fullresult.innerHTML = ''
@@ -409,7 +404,11 @@ citeform.addEventListener("click", async function (event) {
 
     try {
 
-      citeresult.innerHTML = "Your Citation Here:";
+      citeresult.innerHTML = `
+      <h3 class="card-title">
+      Your Citation Here:
+      </h3>
+      `;
       console.log("got request")
       console.log(body);
       //console.log(citedata);
@@ -421,6 +420,10 @@ citeform.addEventListener("click", async function (event) {
       let item = document.createElement('li')
       item.innerHTML = ''
       item.innerHTML = body;
+      item.innerHTML += `
+      <br>
+      <br>
+      <a  class="card-link tohome">redo</a>`
       citeresult.appendChild(item);
 
     } catch (e) {

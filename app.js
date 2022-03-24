@@ -392,7 +392,7 @@ app.post('/newcite', function (req, res) {
     //initial + ", " + surname
     //+ '. "' +
 
-    referencedata = "[" + referencenumber + "] " + mapauthor(authors) + '. ' + title + '", vol. ' + volume + ", no. " + issue + ", pp. " + pageno
+    referencedata = "[" + referencenumber + "] " + mapauthor(authors) + '. "' + title + '", vol. ' + volume + ", no. " + issue + ", pp. " + pageno
         + month + ". " + day + ". " + year + ". doi:\n" + doi
     // const author = {
     console.log("reference data is", referencedata);
