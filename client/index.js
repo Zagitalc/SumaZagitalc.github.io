@@ -1,21 +1,34 @@
+// const res = require("express/lib/response");
+
 const main = document.getElementById("myhome")
 const divContainer = document.getElementById("articlecontainer");
 const homartDiv = document.getElementById("homearticlediv")
 const searchrst = document.getElementById("searchresult")
 const citeresult = document.getElementById("citeresult")
+const fullresult = document.getElementById("fullarticle")
 
 
 function loadmain() {
   main.style.display = "block"
   homartDiv.style.display = "block"
   divContainer.style.display = "none"
-
+  fullresult.style.display = "none"
 
 }
 function loadsearchrst() {
   divContainer.style.display = "block"
   main.style.display = "none"
   searchrst.style.display = "block"
+  homartDiv.style.display = "none"
+  fullresult.style.display = "none"
+
+
+}
+function loadFullPage() {
+  fullresult.style.display = "block"
+  divContainer.style.display = "none"
+  main.style.display = "none"
+  searchrst.style.display = "none"
   homartDiv.style.display = "none"
 
 
@@ -43,13 +56,11 @@ const homebtns = document.querySelectorAll(".tohome")
     homebtn.addEventListener("click", function () {
 
       loadmain();
-      console.log("hello button pressed")
+      window.scrollTo(0, 0);
+
 
 
     });
-
-
-
 
   });
 
@@ -62,7 +73,7 @@ async function loadarticleJson() {
 
 }
 
-
+//load all articles from json
 window.addEventListener("DOMContentLoaded", async (event) => {
 
   event.preventDefault()
@@ -74,44 +85,36 @@ window.addEventListener("DOMContentLoaded", async (event) => {
     //const divContainer = document.getElementById("articlecontainer");
 
 
-    divContainer.innerHTML =
-      `<hr class="featurette-divider">
-        <div class="col-md-7">
-          <h3  class="text-center"> Search Results.</h3>
-              
-        </div>
-    `
-    //console.log(divContainer);
 
     homearticles.forEach(article => {
 
       homartDiv.innerHTML +=
         `<hr class="featurette-divider">
-      <div class="row featurette">
-        <div class="col-md-7">
-          <h3 class="featurette-heading">  ${article.title} . <h5 class="text-muted">${article.date}.</span></h5>
+        <div class="row featurette">
+          <div class="col-md-7">
+            <h3 class="featurette-heading">  ${article.title} . <h5 class="text-muted">${article.date}.</span></h5>
+                
+            <p class="lead">${article.highlights.substring(0, 100)}... </p>
+            <p class="lead">${article.authors ? author(article.authors) : ''}</p>
+            <p class="lead">DOI:<a class="lead" href="${article.doi}"> ${article.doi}</a></p>
+          </div>
+          <div class="col-md-5">
+            <img  class="bd-placeholder-img bd-placeholder-img-lg featurette-image img-fluid mx-auto" width="500"
+            height="500"
+              src="${article.image}"  aria-label="Placeholder: 500x500"
+              preserveAspectRatio="xMidYMid slice" focusable="false">
               
-          <p class="lead">${article.highlights} </p>
-          <p class="lead">${article.authors ? author(article.authors) : ''}</p>
-          <p class="lead">DOI:<a class="lead" href="${article.doi}"> ${article.doi}</a></p>
-        </div>
-        <div class="col-md-5">
-          <img  class="bd-placeholder-img bd-placeholder-img-lg featurette-image img-fluid mx-auto" width="500"
-          height="500"
-             src="${article.image}"  aria-label="Placeholder: 500x500"
-            preserveAspectRatio="xMidYMid slice" focusable="false">
-            
-            <rect width="100%" height="100%" fill="#eee" /><text x="50%" y="50%" fill="#aaa" dy=".3em"></text>
-          </img>
-          </br>
-          </br>
-          <p><a class="btn btn-lg btn-primary" href="#">Load More</a></p>
-        </div>
+              <rect width="100%" height="100%" fill="#eee" /><text x="50%" y="50%" fill="#aaa" dy=".3em"></text>
+            </img>
+            </br>
+            </br>
+            <p><button class="btn btn-lg btn-primary loadMore" onclick ='showFull()' id="loadMore" name="loadMore"   method ='get' value='${article.id}' >Load More</button></p>
+          </div>
 
        `;
-
-
-
+      //readmore to load specific articles
+      //href='/articles?id=${article.id}'
+      //onclick ='showFull()'
 
     });
 
@@ -122,6 +125,84 @@ window.addEventListener("DOMContentLoaded", async (event) => {
 
   }
 });
+
+
+
+//load full article based on specific article
+//console.log(x)
+function showFull() {
+  const buttons = document.querySelectorAll('.loadMore')
+
+  //console.log(buttons[0]);
+  buttons.forEach(button => {
+
+
+    button.addEventListener('click', async (event) => {
+      const id = button.value
+      console.log('xxxxxxxx', id)
+      event.preventDefault();
+      console.log(id)
+
+
+
+      //console.log(id)
+
+
+      const response = await fetch('http://127.0.0.1:8090/reqarticle?id=' + id);
+
+      console.log(response)
+      const fullarticle = await response.json();
+      console.log('fullarticle is', fullarticle)
+
+      const template =
+        ` 
+      <hr class="featurette-divider">
+      <div class="row featurette">
+      <div class="col-md-5">
+          <img  class="bd-placeholder-img bd-placeholder-img-lg featurette-image img-fluid mx-auto" width="500"
+          height="500"
+             src="${fullarticle.image}"  aria-label="Placeholder: 500x500"
+            preserveAspectRatio="xMidYMid slice" focusable="false">
+            
+            <rect width="100%" height="100%" fill="#eee" /><text x="50%" y="50%" fill="#aaa" dy=".3em"></text>
+          </img>
+          </br>
+          </br>
+          
+        </div>
+        <div class="col-md-7">
+          <h3 class="featurette-heading">  ${fullarticle.title} .</h3> <h5 class="text-muted">${fullarticle.date}.</span></h5>
+                
+            <p class="lead">${fullarticle.highlights}</p>
+            
+            <p class="lead">${fullarticle.authors ? author(fullarticle.authors) : ''}</p>
+            <p class="lead">DOI:<a class="lead" href="${fullarticle.doi}"> ${fullarticle.doi}</a></p>
+
+            <h4 class="featurette-heading">Abstract</h4>
+            <p class="lead">${fullarticle.abstract}</p>
+        </div
+        
+      </div >
+      
+      
+      
+      
+      
+      `
+      console.log(template);
+      fullresult.innerHTML = ''
+
+      fullresult.innerHTML += template
+      loadFullPage()
+      window.scrollTo(0, 0);
+
+    });
+
+  });
+}
+
+
+
 
 
 function authordetails(authos) {
@@ -153,11 +234,11 @@ sf.addEventListener("submit", async (event) => {
   event.preventDefault()
   const data = new FormData(sf)
   const params = new URLSearchParams(data)
+  console.log(params);
 
   try {
     const articles = await loadJson(params);
 
-    //const divContainer = document.getElementById("articlecontainer");
 
     divContainer.innerHTML = ""
     divContainer.innerHTML =
@@ -192,7 +273,7 @@ sf.addEventListener("submit", async (event) => {
           </img>
           </br>
           </br>
-          <p><a class="btn btn-lg btn-primary" href="#">Load More</a></p>
+          <p><button class="btn btn-lg btn-primary loadMore" onclick ='showFull()' id="loadMore" name="loadMore"   method ='get' value='${article.id}' >Load More</button></p>
 
         </div>
 
@@ -204,7 +285,9 @@ sf.addEventListener("submit", async (event) => {
     });
 
     loadsearchrst()
-    console.log(searchrst.style.display);
+    window.scrollTo(0, 0);
+
+
   } catch (e) {
     this.alert(e);
     console.log(e);
@@ -287,19 +370,6 @@ citeform.addEventListener("click", async function (event) {
     authors.push(author)
   };
 
-  // let surval = ''
-  // for (var i = 0; i < surname.length; i++) {
-  //   surval += surname[i].value;
-
-
-
-
-
-
-
-
-
-
 
   let title = document.getElementById('title').value;
   let volume = document.getElementById('vol').value;
@@ -309,10 +379,6 @@ citeform.addEventListener("click", async function (event) {
   let day = document.getElementById('day').value;
   let year = document.getElementById('year').value;
   let doi = document.getElementById('doi').value;
-
-
-
-
 
   let referencedata = {
     'referencenumber': ref_no,
@@ -367,14 +433,7 @@ citeform.addEventListener("click", async function (event) {
 
 function validateForm(title, volume, issue) {
 
-  // var b = document.forms["citationform"]['initial'];
-  // var c = document.forms["citationform"]['surname'];
-  // if (b, c != null) {
-  //   if (b.value, c.value == "") {
-  //     alert("Name must be filled out");
-  //     return false;
-  //   }
-  // }
+
 
   if (title, volume, issue == "") {
     alert("Name must be filled out");
