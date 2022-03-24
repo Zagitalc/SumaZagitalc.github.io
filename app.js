@@ -4,7 +4,8 @@ const app = express();
 app.use(express.static(`client`));
 app.use(express.json());
 
-var bodyParser = require('body-parser'); const res = require('express/lib/response');
+var bodyParser = require('body-parser');
+const res = require('express/lib/response');
 const { init } = require('express/lib/application');
 app.use(bodyParser.urlencoded({ extended: false }));
 
@@ -36,11 +37,20 @@ const articles = [
 
 
         "image": "/pictures/covidarticle.jpg",
-        "highlights": `<p>Bulk of COVID-19 per capita deaths occur in elderly
-         with high comorbidities 
-         <Br> 
-         <Br>Per capita COVID-19 deaths are negligible in children.
-         </p>
+        "highlights": `<p>Bulk of COVID-19 per capita deaths occur in elderly with high comorbidities.</p>
+
+        
+        <p>• Per capita COVID-19 deaths are negligible in children.</p>
+        
+        
+        <p>• Clinical trials for these inoculations were very short-term.</p>
+        
+        
+        <p>• Clinical trials did not address long-term effects most relevant to children.</p>
+        
+        
+        <p>• High post-inoculation deaths reported in VAERS (very short-term).</p>
+         
          
          `,
         "abstract": `
@@ -289,7 +299,33 @@ const articles = [
 
 ]
 
-let reftype = ["Harvard", "Vancouver", "IEEE"];
+const reftypes = [
+    {
+        "id": 1,
+        "name": "IEEE",
+        "info": `
+        [Reference number]	Initial. Surname, "Title of article," Title of journal, volume, issue number, pages, Abbreviated month day, year of publication.
+
+        `,
+
+    },
+    {
+        "id": 2,
+        "name": "APA",
+        "info": ` Author(s). (Year of publication). Title of article.
+         Title of journal, Volume number(Issue), Page numbers.`,
+    },
+    {
+        "id": 3,
+        "name": "Vancouver",
+        "info": `
+        Reference number.	Author(s). Title of article. Title of journal.
+         Date of publication; Volume(issue):page numbers.
+
+        `,
+    }
+];
+
 let references = ["This message is to remind you to make a validate form function "];
 
 
@@ -299,7 +335,17 @@ let references = ["This message is to remind you to make a validate form functio
 
 //database for all articles
 app.get('/articles', function (req, resp) {
-    resp.json(articles);
+
+
+
+
+    if (articles == undefined || articles.length == 0) {
+        resp.status(404).json("Articles are undefined so no articles can be fetched");
+    }
+    else {
+        resp.json(articles);
+    }
+
 
 });
 
@@ -311,9 +357,13 @@ app.get('/searchpoint', function (req, res) {
     let results = [];
 
     if (search == '') {
-        res.send(results)
+        res.status(404).json("Nothing has been searched so no articles can be fetched");
         return
 
+    }
+    if (articles == undefined || articles.length == 0) {
+        res.status(404).json("Articles are undefined so no articles can be fetched");
+        return
     }
     for (let i = 0; i < articles.length; i++) {
 
@@ -343,15 +393,53 @@ app.get('/reqarticle', function (req, res) {
             console.log('article ist', article)
             res.json(article)
         }
+        else if (id > articles.length) {
+            res.status(404).json(`Article ${id} is out of range. Not found!`);
+
+        }
 
     };
-    //res.json();
+
 
 
 });
 
+//database for all science related citation types
+app.get('/citations', function (req, res) {
+
+    if (reftypes == undefined || reftypes.length == 0) {
+        res.status(404).json("Citation types are undefined so no articles can be fetched");
+    }
+    else {
+        res.json(reftypes);
+    }
 
 
+});
+
+//gte  details of specific citation type
+app.get('/citations/req', function (req, res) {
+    console.log('got req');
+    const id = req.query.id
+
+    for (let i = 0; i < reftypes.length; i++) {
+
+        console.log('id ist', id)
+        let reftype = reftypes[i];
+        console.log(reftype.id)
+        if (reftypes[i].id == id) {
+
+            console.log('this type of citation ist', reftype)
+            res.json(reftype)
+        }
+        else if (id > reftypes.length) {
+            res.status(404).json(`Article ${id} is out of range. Not found!`);
+
+        }
+
+    };
+
+});
 
 
 
@@ -389,8 +477,6 @@ app.post('/newcite', function (req, res) {
         `
     };
 
-    //initial + ", " + surname
-    //+ '. "' +
 
     referencedata = "[" + referencenumber + "] " + mapauthor(authors) + '. "' + title + '", vol. ' + volume + ", no. " + issue + ", pp. " + pageno
         + month + ". " + day + ". " + year + ". doi:\n" + doi
