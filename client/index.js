@@ -1,6 +1,4 @@
-// const res = require("express/lib/response");
 
-// const { response } = require("../app");
 
 const main = document.getElementById("myhome")
 const divContainer = document.getElementById("articlecontainer");
@@ -47,6 +45,32 @@ function author(authos) {
   </h5>
   `
 };
+
+
+function authordetails(authos) {
+  return `
+  <h5>Authors: 
+  
+  ${authos.map(function (author) {
+    return `${author.initial}, ${author.surname}`
+  }).join(', ')}
+  </h5>
+  `
+}
+function commentdetails(comments) {
+  return `
+  <h5>Authors: 
+  
+  ${authos.map(function (comment) {
+    return `
+    <h4 class='lead'>${comment.name}</h4>
+    <br>
+    <br>
+    <h5>${comment.text}<h5>`
+  }).join('\n ')}
+  </h5>
+  `
+}
 
 
 
@@ -98,7 +122,7 @@ window.addEventListener("DOMContentLoaded", async (event) => {
           <div class="col-md-7">
             <h3 class="featurette-heading">  ${article.title} . <h5 class="text-muted">${article.date}.</span></h5>
                 
-            <p class="lead">${article.highlights.substring(0, 100)}... </p>
+            <h5 class="lead">${article.highlights.substring(0, 200)}... </h5>
             <p class="lead">${article.authors ? author(article.authors) : ''}</p>
             <p class="lead">DOI:<a class="lead" href="${article.doi}"> ${article.doi}</a></p>
           </div>
@@ -137,14 +161,13 @@ window.addEventListener("DOMContentLoaded", async (event) => {
 function showFull() {
   const buttons = document.querySelectorAll('.loadMore')
 
-  //console.log(buttons[0]);
+
   buttons.forEach(button => {
 
 
     button.addEventListener('click', async (event) => {
       event.preventDefault();
       const id = button.value
-      console.log('xxxxxxxx', id)
 
       console.log(id)
 
@@ -176,15 +199,18 @@ function showFull() {
           
         </div>
         <div class="col-md-7">
-          <h3 class="featurette-heading">  ${fullarticle.title} .</h3> <h5 class="text-muted">${fullarticle.date}.</span></h5>
-                
-            <p class="lead">${fullarticle.highlights}</p>
+          <h3 class="featurette-heading">  ${fullarticle.title} .</h3>
+            <p class="lead"><h5 class="text-muted">${fullarticle.date}. ${fullarticle.publisher}</h5></p>
             
             <p class="lead">${fullarticle.authors ? author(fullarticle.authors) : ''}</p>
             <p class="lead">DOI:<a class="lead" href="${fullarticle.doi}"> ${fullarticle.doi}</a></p>
 
+            <h4 class="featurette-heading">Highlights</h4>
+            <h5 class="lead">${fullarticle.highlights}</h5>
+            
+           
             <h4 class="featurette-heading">Abstract</h4>
-            <p class="lead">${fullarticle.abstract}</p>
+            <h5 class="lead">${fullarticle.abstract}</h5>
         </div
         
       </div > 
@@ -205,16 +231,7 @@ function showFull() {
 
 
 
-function authordetails(authos) {
-  return `
-  <h5>Authors: 
-  
-  ${authos.map(function (author) {
-    return `${author.initial}, ${author.surname}`
-  }).join(', ')}
-  </h5>
-  `
-}
+
 
 
 
@@ -259,7 +276,7 @@ sf.addEventListener("submit", async (event) => {
         <div class="col-md-7">
           <h3 class="featurette-heading">  ${article.title} . <span class="text-muted">${article.date}.</span></h3>
               
-          <p class="lead">${article.highlights} </p>
+          <h5 class="lead">${article.highlights.substring(0, 200)} ...</h5>
           <p class="lead">${article.authors ? author(article.authors) : ''}</p>
           <p class="lead">DOI:<a class="lead" href="${article.doi}"> ${article.doi}</a></p>
         </div>
@@ -351,125 +368,120 @@ function citeForm() {
   const citeforms = document.querySelectorAll(".submit_citation");
   citeforms.forEach(citeform => {
 
+    citeform.addEventListener('click', async function (event) {
+
+      event.preventDefault();
 
 
-    function createOneTimeListener(citeform, e, listener) {
+      console.log('clicked me');
+      const id = citeform.value;
+      console.log(id);
+      let ref_no = document.getElementById('refno').value;
 
-      citeform.addEventListener(e, async function (event) {
-        //citeform.removeEventListener('click', k);
-        event.preventDefault();
-        citeform.removeEventListener(e, arguments.callee);
+      console.log(ref_no);
+      let initial = document.getElementsByName('initial');
 
+      let surname = document.getElementsByName('surname');
 
-        console.log('clicked me');
-        const id = citeform.value;
-        console.log(id);
-        let ref_no = document.getElementById('refno').value;
-
-        console.log(ref_no);
-        let initial = document.getElementsByName('initial');
-
-        let surname = document.getElementsByName('surname');
-
-        let authors = []
+      let authors = []
 
 
-        for (var i = 0; i < initial.length; i++) {
-          let author = {
-            'initial': initial[i].value,
-            'surname': surname[i].value
-          };
-
-
-          authors.push(author)
+      for (var i = 0; i < initial.length; i++) {
+        let author = {
+          'initial': initial[i].value,
+          'surname': surname[i].value
         };
 
 
-        let title = document.getElementById('title').value;
-        let volume = document.getElementById('vol').value;
-        let issue = document.getElementById('i').value;
-        let pageno = document.getElementById('pp').value
-        let month = document.getElementById('mon').value;
-        let day = document.getElementById('day').value;
-        let year = document.getElementById('year').value;
-        let doi = document.getElementById('doi').value;
+        authors.push(author)
+      };
 
-        let referencedata = {
-          'referencenumber': ref_no,
 
-          'title': title,
-          'vol': volume,
-          'issue': issue,
-          'pp': pageno,
-          'month': month,
-          'day': day,
-          'year': year,
-          'doi': doi,
-          'authors': authors
+      let title = document.getElementById('title').value;
+      let volume = document.getElementById('vol').value;
+      let issue = document.getElementById('i').value;
+      let pageno = document.getElementById('pp').value
+      let month = document.getElementById('mon').value;
+      let day = document.getElementById('day').value;
+      let year = document.getElementById('year').value;
+      let doi = document.getElementById('doi').value;
 
-        };
+      let referencedata = {
+        'referencenumber': ref_no,
 
-        //if (validateForm(title, volume, issue) != false) {
-        let response = await fetch('http://127.0.0.1:8090/newcite?id=' + id, {
-          method: 'POST',
-          headers: {
-            'Content-Type': 'application/json'
-          },
-          body: JSON.stringify(referencedata)
-        });
+        'title': title,
+        'vol': volume,
+        'issue': issue,
+        'pp': pageno,
+        'month': month,
+        'day': day,
+        'year': year,
+        'doi': doi,
+        'authors': authors
 
-        let body = await response.json();
-        console.log('body is', body);
+      };
 
-        try {
+      //if (validateForm(title, volume, issue) != false) {
+      let response = await fetch('http://127.0.0.1:8090/newcite?id=' + id, {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json'
+        },
+        body: JSON.stringify(referencedata)
+      });
 
-          citeresult.innerHTML = `
+      let body = await response.json();
+      console.log('body is', body);
+
+      try {
+
+        citeresult.innerHTML = `
           <h3 class="card-title">
           Your Citation Here:
           </h3>
           `;
-          console.log("got request")
-          console.log(body);
-          //console.log(citedata);
+        console.log("got request")
+        console.log(body);
+        //console.log(citedata);
 
 
-          //only return the last updated list of referencedata to index.js
+        //only return the last updated list of referencedata to index.js
 
 
-          let item = document.createElement('li')
-          item.innerHTML = ''
-          item.innerHTML = body;
-          item.innerHTML += `
+        let item = document.createElement('li')
+        item.innerHTML = ''
+        item.innerHTML = body;
+        item.innerHTML += `
         <br>
         <br>
         <button  class="btn btn-lg btn-primary toclear"  onclick='clearCiteResult()' >Clear</button>
         `
-          citeresult.appendChild(item);
+        citeresult.appendChild(item);
 
 
-        } catch (e) {
+      } catch (e) {
 
-          console.log(e);
+        console.log(e);
 
-        }
+      }
 
 
-        return listener();
-      });
-    }
 
-    createOneTimeListener(citeform, 'click', function () {
+    });
 
 
 
 
 
 
-    }, { once: true });
+
+
 
   });
 
 };
+
+
 
 
 function validateForm(title, volume, issue) {

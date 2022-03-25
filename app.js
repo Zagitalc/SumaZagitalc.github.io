@@ -5,26 +5,27 @@ app.use(express.static(`client`));
 app.use(express.json());
 
 var bodyParser = require('body-parser');
-const res = require('express/lib/response');
-const { init } = require('express/lib/application');
+
+
 app.use(bodyParser.urlencoded({ extended: false }));
 
 
 const articles = [
     {
         "id": 1,
+        "category": "health and bio",
         "title": "Why are we vaccinating children against COVID-19 ?",
         "authors": [
             {
                 "name": "Ronald N.Kostoff",
-                "authorID": ""
+                "authorID": 1
             },
             {
                 "name": "Daniel Calina",
-                "authorID": ""
+                "authorID": 2
             }
         ],
-        "publisher": "",
+        "publisher": "Toxicology Reports",
         "publishinfo": [
 
             {
@@ -86,6 +87,7 @@ const articles = [
     },
     {
         "id": 2,
+        "category": "engineering and math",
         "title": "Total coloring of recursive maximal planar graphs ",
         "authors": [
             {
@@ -108,11 +110,11 @@ const articles = [
 
 
         ],
-        "publisher": "",
+        "publisher": "Theoretical Computer Science",
         "publishinfo": [
 
             {
-                "Volume": "8",
+                "Volume": "909",
                 "Issue no": "n/a"
             }
         ],
@@ -121,12 +123,11 @@ const articles = [
 
 
         "image": "/pictures/A-3-connected-maximal-planar-graph-with-d-5-First-suppose-that-d-T-5-In-this-case.png",
-        "highlights": `</p>Total Coloring Conjecture holds for recursive maximal planar graphs.
-        <br>
-        <br>
+        "highlights": `
+        Total Coloring Conjecture holds for recursive maximal planar graphs.
+
         (2,2)-recursive maximal planar graphs are totally (Δ + 1)-colorable.
-        <br>
-        <br>
+        
         Linear time algorithms are given for total coloring of recursive maximal planar graphs 
         and (2,2)-recursive maximal planar graphs, respectively
         </p>
@@ -157,6 +158,7 @@ const articles = [
     },
     {
         "id": 3,
+        "category": "astronomy",
         "title": "A Real Time Processing system for big data in astronomy: Applications to HERA",
         "authors": [
             {
@@ -172,21 +174,28 @@ const articles = [
                 "authorID": 3
             }
         ],
-        "publisher": "",
+        "publisher": "Astronomy and Computing",
         "publishinfo": [
 
             {
-                "Volume": "8",
+                "Volume": "36",
                 "Issue no": "n/a"
             }
         ],
-        "date": "2021",
+        "date": "July 2021",
         "doi": "https://doi.org/10.1016/j.ascom.2021.100489",
 
 
         "image": "/pictures/escape-paper-astornomy.jpg",
-        "highlights": `MethodsData analysis — Physical sciences and engineeringAstronomy — 
-        SoftwareData analysis — SoftwareDevelopment</p>
+        "highlights": `
+        </p>
+        • MethodsData analysis
+
+        • Physical sciences and engineeringAstronomy
+
+        • SoftwareData analysis 
+
+        • SoftwareDevelopment
         </p>
         `,
         "abstract": `<p>As current- and next-generation astronomical instruments come online, 
@@ -219,26 +228,28 @@ const articles = [
     },
     {
         "id": 4,
-        "title": "Identifying the influence of disaster education on the risk perception of rural residents in geohazard-prone areas: A propensity score-matched study",
+        "category": "heath and bio",
+        "title": `Identifying the influence of disaster education on the risk perception of rural residents in
+         geohazard-prone areas: A propensity score-matched study`,
         "authors": [
             {
                 "name": "Xiaohui Wang",
-                "authorID": ""
+                "authorID": 1
             },
             {
                 "name": "Li Peng  Wei Dengab",
-                "authorID": ""
+                "authorID": 2
             },
             {
                 "name": "Kexin Huang ",
-                "authorID": ""
+                "authorID": 3
             },
             {
                 "name": " Wei Dengab",
-                "authorID": ""
+                "authorID": 4
             }
         ],
-        "publisher": "",
+        "publisher": "International Journal of Disaster Risk Reduction",
         "publishinfo": [
 
             {
@@ -246,22 +257,26 @@ const articles = [
                 "Issue no": "n/a"
             }
         ],
-        "date": "March 2021",
+        "date": "March 2022",
         "doi": "https://doi.org/10.1016/j.ijdrr.2022.102795",
 
 
         "image": "/pictures/riskreduction.jpg",
-        "highlights": `Focus on informal education of local residents rather than formal 
-        education in schools. PSM is used to eliminate the bias in the estimation results 
-        caused by sample selection Different dimensions of risk perception are considered.
-        Policy suggestions on disaster education methods were put forward to guide scientific 
-        risk perception.
+        "highlights": `
+        • Focus on informal education of local residents rather than formal 
+          education in schools. 
+
+        • PSM is used to eliminate the bias in the estimation results 
+          caused by sample selection Different dimensions of risk perception are considered.
+
+        • Policy suggestions on disaster education methods were put forward to guide scientific 
+          risk perception.
         </p>
         
         
         `,
         "abstract": `
-        Abstract
+        
         Improving the risk perception of rural residents is an important factor in disaster 
         risk reduction (DRR) activities. For residents in geohazard-prone areas, disaster 
         education may affect the formation of risk perception. To verify this hypothesis, 
@@ -298,6 +313,7 @@ const articles = [
     },
     {
         "id": 5,
+        "category": "wildlife",
         "title": `Reducing deforestation and improving livestock productivity: greenhouse gas 
         mitigation potential of silvopastoral systems in Caquetá`,
         "authors": [
@@ -368,6 +384,7 @@ const articles = [
     },
     {
         "id": 6,
+        "category": "astronomy",
         "title": "Space Radiation Biology for “Living in Space”",
         "authors": [
             {
@@ -438,6 +455,54 @@ const articles = [
                 "Text": "doch!"
             }
         ]
+    },
+    {
+        "id": 7,
+        "category": "engineering and maths",
+        "title": "Phase engineering of nanomaterials",
+        "authors": [
+            {
+                "name": "Ye Chen ",
+                "authorID": 1
+            },
+            {
+                "name": "Zhuangchai Lai",
+                "authorID": 2
+            },
+            {
+                "name": "Xiao Zhang",
+                "authorID": 3
+            }
+        ],
+        "publisher": "Nature Reviews Chemistry ",
+        "publishinfo": [
+
+            {
+                "Volume": "4",
+                "Issue no": "n/a"
+            }
+        ],
+        "date": "01 April 2020",
+        "doi": "https://doi.org/10.1038/s41570-020-0173-4",
+
+
+        "image": "/pictures/article7.jpg",
+        "highlights": `<p>Phase engineering is more feasibly achieved in nanomaterials than in their bulk counterparts, because the growth of nanomaterials is greatly affected by their surface characteristics, in addition to kinetics and thermodynamics
+        </p>
+        `,
+        "abstract": `<p>Phase has emerged as an important structural parameter — in addition to composition, morphology, architecture, facet, size and dimensionality — that determines the properties and functionalities of nanomaterials. In particular, unconventional phases in nanomaterials that are unattainable in the bulk state can potentially endow nanomaterials with intriguing properties and innovative applications. Great progress has been made in the phase engineering of nanomaterials (PEN), including synthesis of nanomaterials with unconventional phases and phase transformation of nanomaterials. This Review provides an overview on the recent progress in PEN. We discuss various strategies used to synthesize nanomaterials with unconventional phases and induce phase transformation of nanomaterials, by taking noble metals and layered transition metal dichalcogenides as typical examples. Moreover, we also highlight recent advances in the preparation of amorphous nanomaterials, amorphous–crystalline and crystal phase-based hetero-nanostructures. We also provide personal perspectives on challenges and opportunities in this emerging field, including exploration of phase-dependent properties and applications, rational design of phase-based heterostructures and extension of the concept of phase engineering to a wider range of materials.
+        </p>`,
+        "comments": [
+            {
+                "name": "abcd12",
+                "text": "das ist ganz gut"
+            },
+
+            {
+                "Name": "plxy99",
+                "Text": `RT @StephanSroche: Cambridge University Press is offering 30% discount on many "Quantum Books" including ours on "Graphene, two-dimensional…`
+            }
+        ]
     }
 
 ]
@@ -469,7 +534,7 @@ const reftypes = [
     }
 ];
 
-const references = ["This message is to remind you to make a validate form function "];
+const references = ["Your citation history: "];
 
 
 
