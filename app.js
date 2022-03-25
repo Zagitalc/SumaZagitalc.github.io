@@ -161,15 +161,15 @@ const articles = [
         "authors": [
             {
                 "name": "P.La Plante ",
-                "authorID": ""
+                "authorID": 1
             },
             {
                 "name": "P.K.G.Williams",
-                "authorID": ""
+                "authorID": 2
             },
             {
                 "name": "M.Kolopanis",
-                "authorID": ""
+                "authorID": 3
             }
         ],
         "publisher": "",
@@ -284,6 +284,149 @@ const articles = [
             strategies and improve community resilience in mountainous areas.
         
         `,
+        "comments": [
+            {
+                "name": "abcd12",
+                "text": "das ist ganz gut"
+            },
+
+            {
+                "Name": "plxy99",
+                "Text": "doch!"
+            }
+        ]
+    },
+    {
+        "id": 5,
+        "title": `Reducing deforestation and improving livestock productivity: greenhouse gas 
+        mitigation potential of silvopastoral systems in Caquetá`,
+        "authors": [
+            {
+                "name": "David M Landholm ",
+                "authorID": 1
+            },
+            {
+                "name": "Prajal Pradhan",
+                "authorID": 2
+            },
+            {
+                "name": "Peter Wegmann",
+                "authorID": 3
+            }
+        ],
+        "publisher": "Environmental Research Letters",
+        "publishinfo": [
+
+            {
+                "Volume": "14",
+                "Issue no": "11"
+            }
+        ],
+        "date": "2019",
+        "doi": "https://doi.org/10.1088/1748-9326/ab3db6",
+
+
+        "image": "/pictures/article5.jpg",
+        "highlights": `<p>The agriculture, forestry and other land use (AFOLU) sector accounts
+        for 23% of net global anthropogenic greenhouse gas (GHG) emissions [1]. In order to 
+        achieve global climate targets, land use (LU) GHG emissions must decrease along a nonlinear 
+        trajectory and reach carbon neutrality by 2050 [2]. Although commercial agriculture expansion 
+        [3] is now considered the main driver of deforestation, subsistence agriculture still plays a 
+        major role in deforestation dynamics in many regions [4].
+        </p>
+        
+        `,
+        "abstract": `<p>Abstract
+        Colombia's agriculture, forestry and other land use sector accounts for nearly half
+         of its total greenhouse gas (GHG) emissions. The importance of smallholder deforestation
+        is comparatively high in relation to its regional counterparts, and livestock agriculture 
+        represents the largest driver of primary forest depletion. Silvopastoral systems (SPSs) 
+        are presented as agroecological solutions that synergistically enhance livestock productivity,
+        improve local farmers' livelihoods and hold the potential to reduce pressure on forest conversion.
+        The department of Caquetá represents Colombia's most important deforestation hotspot. Targeting
+        smallholder livestock farms through survey data, in this work we investigate the GHG mitigation
+        potential of implementing SPSs for smallholder farms in this region. Specifically, we assess 
+        whether the carbon sequestration taking place in the soil and biomass of SPSs is sufficient to
+        offset the per-hectare increase in livestock GHG emissions resulting from higher stocking rates.
+        To address these questions we use data on livestock population characteristics and historic land 
+        cover changes reported from a survey covering 158 farms and model the carbon sequestration occurring
+        in three different scenarios of progressively-increased SPS complexity using the CO2 fix model. We 
+        find that, even with moderate tree planting densities, the implementation of SPSs can reduce GHG 
+        emissions by 2.6 Mg CO2e ha 1 yr 1 in relation to current practices, while increasing agriculture 
+        productivity and contributing to the restoration of severely degraded landscapes.</p>`,
+        "comments": [
+            {
+                "name": "abcd12",
+                "text": "das ist ganz gut"
+            },
+
+            {
+                "Name": "plxy99",
+                "Text": "doch!"
+            }
+        ]
+    },
+    {
+        "id": 6,
+        "title": "Space Radiation Biology for “Living in Space”",
+        "authors": [
+            {
+                "name": "Satoshi Furukawa ",
+                "authorID": 1
+            },
+            {
+                "name": "Aiko Nagamatsu",
+                "authorID": 2
+            },
+            {
+                "name": "Mitsuru Nenoi",
+                "authorID": 3
+            }
+        ],
+        "publisher": "BioMed Research International",
+        "publishinfo": [
+
+            {
+                "Volume": "n/a",
+                "Issue no": "n/a"
+            }
+        ],
+        "date": "2020",
+        "doi": "https://doi.org/10.1155/2020/4703286",
+
+
+        "image": "/pictures/article6.jpg",
+        "highlights": `<p>Yuri Gagarin was the first human to journey into outer space. 
+        He completed one orbit of Earth on 12 April 1961. Almost 60 years have passed 
+        since this event, and space mission durations have remarkably extended. </p>
+        </p>
+        `,
+        "abstract": `<p>Space travel has advanced significantly over the last six decades
+        with astronauts spending up to 6 months at the International Space Station. Nonetheless,
+        
+        the living environment while in outer space is extremely challenging to astronauts. 
+        In particular, exposure to space radiation represents a serious potential long-term 
+        threat to the health of astronauts because the amount of radiation exposure accumulates 
+        during their time in space. Therefore, health risks associated with exposure to space 
+        radiation are an important topic in space travel, and characterizing space radiation in
+        detail is essential for improving the safety of space missions. In the first part of 
+        this review, we provide an overview of the space radiation environment and briefly present
+        current and future endeavors that monitor different space radiation environments. We then 
+        present research evaluating adverse biological effects caused by exposure to various space
+        radiation environments and how these can be reduced. We especially consider the deleterious
+        effects on cellular DNA and how cells activate DNA repair mechanisms. The latest technologies 
+        being developed, e.g., a fluorescent ubiquitination-based cell cycle indicator, to measure 
+        real-time cell cycle progression and DNA damage caused by exposure to ultraviolet radiation are
+        presented. Progress in examining the combined effects of microgravity and radiation to animals 
+        and plants are summarized, and our current understanding of the relationship between 
+        psychological stress and radiation is presented. Finally, we provide details about protective
+        agents and the study of organisms that are highly resistant to radiation and how their 
+        biological mechanisms may aid developing novel technologies that alleviate biological damage 
+        caused by radiation. Future research that furthers our understanding of the effects of space 
+        radiation on human health will facilitate risk-mitigating strategies to enable long-term space
+         and planetary exploration.
+
+        </p>`,
         "comments": [
             {
                 "name": "abcd12",

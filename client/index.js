@@ -350,111 +350,126 @@ function citeForm() {
   // returned a cited json string
   const citeforms = document.querySelectorAll(".submit_citation");
   citeforms.forEach(citeform => {
-    console.log('hihere');
-    citeform.addEventListener("click", async function k(event) {
 
 
-      event.preventDefault();
-      console.log('clicked me');
-      const id = citeform.value;
-      console.log(id);
-      let ref_no = document.getElementById('refno').value;
 
-      console.log(ref_no);
-      let initial = document.getElementsByName('initial');
+    function createOneTimeListener(citeform, e, listener) {
 
-      let surname = document.getElementsByName('surname');
-
-      let authors = []
+      citeform.addEventListener(e, async function (event) {
+        //citeform.removeEventListener('click', k);
+        event.preventDefault();
+        citeform.removeEventListener(e, arguments.callee);
 
 
-      for (var i = 0; i < initial.length; i++) {
-        let author = {
-          'initial': initial[i].value,
-          'surname': surname[i].value
+        console.log('clicked me');
+        const id = citeform.value;
+        console.log(id);
+        let ref_no = document.getElementById('refno').value;
+
+        console.log(ref_no);
+        let initial = document.getElementsByName('initial');
+
+        let surname = document.getElementsByName('surname');
+
+        let authors = []
+
+
+        for (var i = 0; i < initial.length; i++) {
+          let author = {
+            'initial': initial[i].value,
+            'surname': surname[i].value
+          };
+
+
+          authors.push(author)
         };
 
 
-        authors.push(author)
-      };
+        let title = document.getElementById('title').value;
+        let volume = document.getElementById('vol').value;
+        let issue = document.getElementById('i').value;
+        let pageno = document.getElementById('pp').value
+        let month = document.getElementById('mon').value;
+        let day = document.getElementById('day').value;
+        let year = document.getElementById('year').value;
+        let doi = document.getElementById('doi').value;
+
+        let referencedata = {
+          'referencenumber': ref_no,
+
+          'title': title,
+          'vol': volume,
+          'issue': issue,
+          'pp': pageno,
+          'month': month,
+          'day': day,
+          'year': year,
+          'doi': doi,
+          'authors': authors
+
+        };
+
+        //if (validateForm(title, volume, issue) != false) {
+        let response = await fetch('http://127.0.0.1:8090/newcite?id=' + id, {
+          method: 'POST',
+          headers: {
+            'Content-Type': 'application/json'
+          },
+          body: JSON.stringify(referencedata)
+        });
+
+        let body = await response.json();
+        console.log('body is', body);
+
+        try {
+
+          citeresult.innerHTML = `
+          <h3 class="card-title">
+          Your Citation Here:
+          </h3>
+          `;
+          console.log("got request")
+          console.log(body);
+          //console.log(citedata);
 
 
-      let title = document.getElementById('title').value;
-      let volume = document.getElementById('vol').value;
-      let issue = document.getElementById('i').value;
-      let pageno = document.getElementById('pp').value
-      let month = document.getElementById('mon').value;
-      let day = document.getElementById('day').value;
-      let year = document.getElementById('year').value;
-      let doi = document.getElementById('doi').value;
-
-      let referencedata = {
-        'referencenumber': ref_no,
-
-        'title': title,
-        'vol': volume,
-        'issue': issue,
-        'pp': pageno,
-        'month': month,
-        'day': day,
-        'year': year,
-        'doi': doi,
-        'authors': authors
-
-      };
-
-      //if (validateForm(title, volume, issue) != false) {
-      let response = await fetch('http://127.0.0.1:8090/newcite?id=' + id, {
-        method: 'POST',
-        headers: {
-          'Content-Type': 'application/json'
-        },
-        body: JSON.stringify(referencedata)
-      });
-
-      let body = await response.json();
-      console.log('body is', body);
-
-      try {
-
-        citeresult.innerHTML = `
-      <h3 class="card-title">
-      Your Citation Here:
-      </h3>
-      `;
-        console.log("got request")
-        console.log(body);
-        //console.log(citedata);
+          //only return the last updated list of referencedata to index.js
 
 
-        //only return the last updated list of referencedata to index.js
-
-
-        let item = document.createElement('li')
-        item.innerHTML = ''
-        item.innerHTML = body;
-        item.innerHTML += `
+          let item = document.createElement('li')
+          item.innerHTML = ''
+          item.innerHTML = body;
+          item.innerHTML += `
         <br>
         <br>
         <button  class="btn btn-lg btn-primary toclear"  onclick='clearCiteResult()' >Clear</button>
         `
-        citeresult.appendChild(item);
+          citeresult.appendChild(item);
 
 
-      } catch (e) {
+        } catch (e) {
 
-        console.log(e);
+          console.log(e);
 
-      }
+        }
 
-      // citeform.removeEventListener('ended', (event) => {
 
-      //   event.stopPropagation();
-      //   event.bubbles = false;
-      // })
+        return listener();
+      });
+    }
+
+    createOneTimeListener(citeform, 'click', function () {
+
+
+
+
+
+
     }, { once: true });
+
   });
-}
+
+};
 
 
 function validateForm(title, volume, issue) {
