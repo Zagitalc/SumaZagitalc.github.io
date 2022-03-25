@@ -326,7 +326,7 @@ const reftypes = [
     }
 ];
 
-let references = ["This message is to remind you to make a validate form function "];
+const references = ["This message is to remind you to make a validate form function "];
 
 
 
@@ -451,10 +451,7 @@ app.post('/newcite', function (req, res) {
 
     console.log("got request");
 
-    //console.log("req body is", req.body);
-
-
-
+    console.log("req body is", req.body);
 
     const referencenumber = req.body.referencenumber;
 
@@ -486,23 +483,24 @@ app.post('/newcite', function (req, res) {
             return
         }
     };
-
+    var referencedata = 0
+    console.log('hi')
     if (id == 1) {
         //IEE
         referencedata = "[" + referencenumber + "] " + mapauthor(authors) + '. "' + title + '", vol. ' + volume + ", no. " + issue + ", pp. " + pageno + ", "
-            + month + ". " + day + ". " + year + ". doi:\n" + doi
+            + month + ". " + day + ". " + year + ". doi:\n" + doi + '\n'
         // const author = {
 
     } else if (id == 2) {
         //APA 7TH
         referencedata = mapauthor(authors) + '. (' + year + '), ' + title + ', ' + volume + "(" + issue + "), " + pageno
-            + ". doi:\n" + doi
+            + ". doi:\n" + doi + '\n'
 
     } else if (id == 3) {
         //vancouver
         //surname first (full)
         referencedata = referencenumber + ".     " + mapauthor(authors) + '. "' + title + '",' + year + ". " + month + ". " + day + '; ' + volume + "(" + issue + "):" + pageno
-            + ". doi:\n" + doi
+            + ". doi:\n" + doi + '\n'
 
 
     }
@@ -521,6 +519,18 @@ app.post('/newcite', function (req, res) {
     //console.log(k);
 });
 
+
+app.get('/citations/hist', function (req, res) {
+    if (references == undefined || references.length == 0) {
+        res.json('No history found')
+        return
+    }
+
+    res.json(references);
+
+
+
+});
 
 module.exports = app;
 

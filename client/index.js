@@ -1,10 +1,13 @@
 // const res = require("express/lib/response");
 
+// const { response } = require("../app");
+
 const main = document.getElementById("myhome")
 const divContainer = document.getElementById("articlecontainer");
 const homartDiv = document.getElementById("homearticlediv")
 const searchrst = document.getElementById("searchresult")
 const citeresult = document.getElementById("citeresult")
+const citehistory = document.getElementById("citehistoria")
 const fullresult = document.getElementById("fullarticle")
 
 
@@ -43,7 +46,7 @@ function author(authos) {
   }).join(', ')}
   </h5>
   `
-}
+};
 
 
 
@@ -139,9 +142,10 @@ function showFull() {
 
 
     button.addEventListener('click', async (event) => {
+      event.preventDefault();
       const id = button.value
       console.log('xxxxxxxx', id)
-      event.preventDefault();
+
       console.log(id)
 
 
@@ -346,10 +350,12 @@ function citeForm() {
   // returned a cited json string
   const citeforms = document.querySelectorAll(".submit_citation");
   citeforms.forEach(citeform => {
-    citeform.addEventListener("click", async (event) => {
+    console.log('hihere');
+    citeform.addEventListener("click", async function k(event) {
 
 
       event.preventDefault();
+      console.log('clicked me');
       const id = citeform.value;
       console.log(id);
       let ref_no = document.getElementById('refno').value;
@@ -422,24 +428,31 @@ function citeForm() {
 
 
         //only return the last updated list of referencedata to index.js
-        console.log('body.length', body.length)
+
 
         let item = document.createElement('li')
         item.innerHTML = ''
         item.innerHTML = body;
         item.innerHTML += `
-      <br>
-      <br>
-      <a  class="card-link tohome" onclick="backHome() ">redo</a>`
+        <br>
+        <br>
+        <button  class="btn btn-lg btn-primary toclear"  onclick='clearCiteResult()' >Clear</button>
+        `
         citeresult.appendChild(item);
+
 
       } catch (e) {
 
         console.log(e);
 
       }
-      //}
-    });
+
+      // citeform.removeEventListener('ended', (event) => {
+
+      //   event.stopPropagation();
+      //   event.bubbles = false;
+      // })
+    }, { once: true });
   });
 }
 
@@ -455,8 +468,68 @@ function validateForm(title, volume, issue) {
 
 }
 
+function clearCiteResult() {
+
+  const clearbtns = document.querySelectorAll('.toclear')
+  clearbtns.forEach(clearbtn => {
+
+    clearbtn.addEventListener('click', () => {
+      console.log('clicked');
+      citeresult.innerHTML = `
+      <h3 class="card-title">Your citation will be shown here:</h3>
+                  
+      <!-- <p class="card-text">Some quick example text to build on the card title and make up the bulk of the card's content.</p> -->
+      
+      <button  class="btn btn-lg btn-primary toclear"  onclick='clearCiteResult()' >Clear</button>
+        `
+
+    })
 
 
 
+
+  });
+
+
+
+};
+
+//view history of your citations
+function viewHistory() {
+  const histbtns = document.querySelectorAll('.toHistoria')
+  histbtns.forEach(histbtn => {
+    histbtn.addEventListener('click', async (event) => {
+      event.preventDefault();
+      console.log('hihi');
+
+
+
+
+      let response = await fetch('http://127.0.0.1:8090/citations/hist');
+
+      let body = await response.json()
+      console.log(body)
+
+
+
+
+      citehistory.innerHTML = ''
+      citehistory.innerHTML = `
+      ${body}
+      `;
+      citehistory.innerHTML += `
+        <br>
+        <br>
+        <button  class="btn btn-lg btn-primary toHistoria"  onclick='viewHistory() ' >View History</button>
+        `
+
+
+    })
+  });
+
+
+
+
+}
 
 
