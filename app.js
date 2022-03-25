@@ -451,7 +451,8 @@ app.post('/newcite', function (req, res) {
 
     console.log("got request");
 
-    console.log("req body is", req.body);
+    //console.log("req body is", req.body);
+
 
 
 
@@ -468,19 +469,46 @@ app.post('/newcite', function (req, res) {
     const year = req.body.year;
     const doi = req.body.doi;
 
+    const id = req.query.id
+    console.log('in server, id ist', id);
+
     function mapauthor(authors) {
-        return `
+        if (authors != null) {
+            return `
         ${authors.map(function (author) {
-            return `${[author.initial.slice(0, 1).toUpperCase(), author.surname.slice(0, 1).toUpperCase()].filter(Boolean).join(', ')}
+                return `${[author.initial.slice(0, 1).toUpperCase(), author.surname.substring(0, 1).toUpperCase() + author.surname.substring(1)].filter(Boolean).join(', ')}
         `
-        }).filter(Boolean).join('. ')}
+            }).filter(Boolean).join('. ')}
         `
+        }
+        else {
+            console.log('not found');
+            return
+        }
     };
 
+    if (id == 1) {
+        //IEE
+        referencedata = "[" + referencenumber + "] " + mapauthor(authors) + '. "' + title + '", vol. ' + volume + ", no. " + issue + ", pp. " + pageno + ", "
+            + month + ". " + day + ". " + year + ". doi:\n" + doi
+        // const author = {
 
-    referencedata = "[" + referencenumber + "] " + mapauthor(authors) + '. "' + title + '", vol. ' + volume + ", no. " + issue + ", pp. " + pageno
-        + month + ". " + day + ". " + year + ". doi:\n" + doi
-    // const author = {
+    } else if (id == 2) {
+        //APA 7TH
+        referencedata = mapauthor(authors) + '. (' + year + '), ' + title + ', ' + volume + "(" + issue + "), " + pageno
+            + ". doi:\n" + doi
+
+    } else if (id == 3) {
+        //vancouver
+        //surname first (full)
+        referencedata = referencenumber + ".     " + mapauthor(authors) + '. "' + title + '",' + year + ". " + month + ". " + day + '; ' + volume + "(" + issue + "):" + pageno
+            + ". doi:\n" + doi
+
+
+    }
+
+
+
     console.log("reference data is", referencedata);
 
 
@@ -489,7 +517,8 @@ app.post('/newcite', function (req, res) {
     references.push(referencedata);
 
     console.log("n server .js", references);
-    res.json(references.at(-1));
+    const k = res.json(references.at(-1));
+    //console.log(k);
 });
 
 

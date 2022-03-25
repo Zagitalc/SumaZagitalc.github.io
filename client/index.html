@@ -46,7 +46,7 @@
     <!-- <nav class="navbar navbar-expand-md navbar-dark fixed-top bg-dark"> -->
     <nav class="navbar navbar-expand-md navbar-light fixed-top " style="background-color: #d7e7f1;">
       <div class="container-fluid">
-        <a class="navbar-brand fs-1 fw-light tohome"  id ="homebtn" href="#">What is scIeNce??
+        <a class="navbar-brand fs-1 fw-light tohome" onclick="backHome() " id ="homebtn" href="#">What is scIeNce??
           <!-- <p class="fs-1">WHat is science??</p> -->
 
         </a>
@@ -132,8 +132,8 @@
 
           <div class="container">
             <div class="carousel-caption">
-              <h1>An article a day keeps your poor grades away!!</h1>
-              <p>Enrich your scientific knowledge! Discover our wide range of articles Including STEM, Healthcare and
+              <h1>Daily dose of articles enrich your scientific knowledge!!</h1>
+              <p> Discover our wide range of articles Including STEM, Healthcare and
                 Nature.</p>
               <p><a class="btn btn-lg btn-primary" href="#">Learn more</a></p>
             </div>
@@ -221,13 +221,13 @@
       <div class="row align-items-start">
         <div class="col">
           <h3 >Don't know how to cite? Try them out</h3>
-          <form  name='citationform' action="http://127.0.0.1:8090/newcite" method="post" >
+          <form  name='citationform'   >
           
-            <p>Reference number (IEEE)    <input id="refno"></input></p>
+            <p>Reference number (IEEE/Vancouver)    <input id="refno"></input></p>
             <p>Choose number of authors</p>
             <select id = "selectaddfield" name = "selectaddfield" onchange="addFields()" class="form-select form-select-lg mb-3" aria-label=".form-select-lg example">
               
-              <!-- <option selected>Open this select menu</option> -->
+             <option selected>Open this select menu</option>
               <option value="1">One</option>
               <option value="2">Two</option>
               <option value="3">Three</option>
@@ -247,29 +247,22 @@
 
 
 
-
-            <p><input type="submit" id ="submit_citation"></input></p>
-            <!-- . Surname,  
-            "Title of article,
-            " Title of journal,
-            volume
-            issue number
-            pages
-            Abbreviated month day,
-                year of publication. -->
-
+            
+            <!--  -->
           </form>
-
+          <p><button class="btn btn-lg btn-primary submit_citation"  onclick="citeForm()" id="submit_citation"  value='1' >Submit IEEE citation</button></p>
+            <p><button class="btn btn-lg btn-primary submit_citation"  onclick="citeForm()" id="submit_citation"  value='2' >Submit APA citation</button></p>
+            <p><button class="btn btn-lg btn-primary submit_citation" onclick="citeForm()" id="submit_citation"  value='3' >Submit Vancouver citation</button></p>
         </div>
 
             <div class="col" >
               <div class="card" >
                 <div class="card-body" id="citeresult">
-                  <h3 class="card-title">your citation will be shown here:</h3>
+                  <h3 class="card-title">Your citation will be shown here:</h3>
                   
                   <p class="card-text">Some quick example text to build on the card title and make up the bulk of the card's content.</p>
                   
-                  <a  class="card-link tohome">Clear</a>
+                  <a  class="card-link tohome" onclick="backHome() ">Clear</a>
                 </div>
               </div>
             </div>
@@ -299,7 +292,7 @@
   </div>
     <!-- FOOTER -->
     <nav>
-      <button type="button" id ="homebtn" class="btn btn-primary  tohome text-end" >Return Home</button>
+      <button type="button" id ="homebtn" class="btn btn-primary  tohome text-end" onclick="backHome() " >Return Home</button>
       
     </nav>
     <footer class="container">
