@@ -7,14 +7,14 @@ const searchrst = document.getElementById("searchresult")
 const citeresult = document.getElementById("citeresult")
 const citehistory = document.getElementById("allHistories")
 const fullresult = document.getElementById("fullarticle")
-const commentsection = document.getElementById('commentsection')
+
 
 function loadmain() {
   main.style.display = "block"
   homartDiv.style.display = "block"
   divContainer.style.display = "none"
   fullresult.style.display = "none"
-  commentsection.style.display = "none"
+
 }
 function loadsearchrst() {
   divContainer.style.display = "block"
@@ -22,7 +22,7 @@ function loadsearchrst() {
   searchrst.style.display = "block"
   homartDiv.style.display = "none"
   fullresult.style.display = "none"
-  commentsection.style.display = "none"
+
 
 }
 function loadFullPage() {
@@ -31,7 +31,6 @@ function loadFullPage() {
   main.style.display = "none"
   searchrst.style.display = "none"
   homartDiv.style.display = "none"
-  commentsection.style.display = "block"
 
 }
 
@@ -185,7 +184,8 @@ function showFull() {
       const template =
         ` 
       <hr class="featurette-divider">
-      <div class="row featurette">
+      
+      <div class="row featurette" >
         
         <div class="col-md-7">
           <h3 class="featurette-heading">  ${fullarticle.title} .</h3>
@@ -221,21 +221,45 @@ function showFull() {
           <h5 class="lead">comments to be shown here</h5>
       </div>
       
+      
       `
-      fullresult.innerHTML = ''
-      fullresult.innerHTML += template
+      const fullarticlesection = document.getElementById('fullarticlesection')
+      fullarticlesection.innerHTML = ''
+      fullarticlesection.innerHTML += template
 
+      //
+      const storeid = document.createElement('p');
+
+      //set id
+      storeid.setAttribute("id", "fullarticleid");
+      storeid.setAttribute("value", fullarticle.id);
+
+      fullarticlesection.appendChild(storeid)
+
+
+
+
+      const commentsection = document.getElementById('commentsection')
       commentsection.innerHTML = ''
       commentsection.innerHTML += commentemplate
 
       const comments = fullarticle.comments
       for (var i = 0; i < comments.length; i++) {
         commentsection.innerHTML += `
-        -${comments[i].name}
 
-        -${comments[i].text}
-        <br>
-        <br>
+
+        <a  class="list-group-item list-group-item-action " aria-current="true">
+          <div class="d-flex w-100 justify-content-between">
+            <h5 class="mb-1">${comments[i].name}</h5>
+            <small>3 days ago</small>
+          </div>
+          <p class="mb-1">${comments[i].text}</p>
+          <small>And some small print.</small>
+        </a>
+        
+        
+        
+        
         `
 
       }
@@ -510,15 +534,9 @@ function clearCiteResult() {
       
       <button  class="btn btn-lg btn-primary toclear"  onclick='clearCiteResult()' >Clear</button>
         `
-
     })
 
-
-
-
   });
-
-
 
 };
 
@@ -545,7 +563,35 @@ document.getElementById(`viewHistory`).addEventListener('click', async function 
         `;
   }
 
+});
 
+document.getElementById('addcommentic').addEventListener('click', async (event) => {
+  event.preventDefault();
+  console.log('added');
+  const yourcommentname = document.getElementById('yourcommentname').value
+  const yourcomment = document.getElementById('yourcomment').value
+  const id = document.getElementById('fullarticleid').getAttribute('value')
+  console.log('full article id ist', id);
+  console.log('comment', yourcomment);
+
+  const commetbox = {
+
+    "name": yourcommentname,
+    "text": yourcomment,
+
+  }
+
+
+
+  let response = await fetch('http://127.0.0.1:8090/comments/addcomment?id=' + id, {
+    method: 'POST',
+    headers: {
+      'Content-Type': 'application/json'
+    },
+    body: JSON.stringify(commetbox)
+  });
+  let body = await response.json()
+  console.log(body)
 });
 
 

@@ -736,9 +736,20 @@ app.get('/citations/hist', function (req, res) {
 
     res.json(references);
 
-
-
 });
+
+//post comments
+app.post('/comments/addcomment', function (req, res) {
+    const id = req.query.id
+
+    const body = req.body
+    console.log('request body', body);
+    res.json(body)
+});
+
+
+
+
 
 module.exports = app;
 
