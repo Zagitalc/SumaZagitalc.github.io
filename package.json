@@ -4,7 +4,7 @@
   "description": "",
   "main": "server.js",
   "scripts": {
-    "test": "jest",
+    "test": "jest ",
     "test2": "echo \"Error: no test specified\" && exit 1",
     "start": "nodemon node server.js"
   },

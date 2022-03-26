@@ -215,7 +215,7 @@ function showFull() {
         </div>
       </div > 
       `
-      const commentemplate = `
+      const commentitle = `
       <div class="col-md-5">
         <h4 class="featurette-heading">Comments</h4>
           <h5 class="lead">comments to be shown here</h5>
@@ -241,26 +241,12 @@ function showFull() {
 
       const commentsection = document.getElementById('commentsection')
       commentsection.innerHTML = ''
-      commentsection.innerHTML += commentemplate
+      commentsection.innerHTML += commentitle
 
       const comments = fullarticle.comments
       for (var i = 0; i < comments.length; i++) {
-        commentsection.innerHTML += `
+        commenTemplate(commentsection, comments[i])
 
-
-        <a  class="list-group-item list-group-item-action " aria-current="true">
-          <div class="d-flex w-100 justify-content-between">
-            <h5 class="mb-1">${comments[i].name}</h5>
-            <small>3 days ago</small>
-          </div>
-          <p class="mb-1">${comments[i].text}</p>
-          <small>And some small print.</small>
-        </a>
-        
-        
-        
-        
-        `
 
       }
       loadFullPage()
@@ -271,9 +257,21 @@ function showFull() {
   });
 }
 
+function commenTemplate(commentsection, comments) {
+  commentsection.innerHTML += `
 
 
-
+        <a  class="list-group-item list-group-item-action " aria-current="true">
+          <div class="d-flex w-100 justify-content-between">
+            <h5 class="mb-1">${comments.name}</h5>
+            <small>recent</small>
+          </div>
+          <p class="mb-1">${comments.text}</p>
+          
+        </a>        
+        
+        `
+}
 
 
 
@@ -365,10 +363,18 @@ function addFields() {
   }
   for (i = 0; i < number; i++) {
     // Append a node with a random text
-    container.appendChild(document.createTextNode("surname " + (i + 1)));
+    //container.appendChild();
     // Create an <input> element, set its type and name attributes
+    var label = document.createElement("label");
+    label.setAttribute('for', "colFormLabelLg");
+    label.setAttribute("class", "col-sm-2 col-form-label col-form-label-lg");
+
+    label.appendChild(document.createTextNode("surname " + (i + 1)))
+    container.appendChild(label);
+
     var input = document.createElement("input");
     input.type = "text";
+    input.class = "form-control form-control-lg";
     input.name = "surname";
     input.id = 'surname'
     container.appendChild(input);
@@ -379,11 +385,19 @@ function addFields() {
     container.appendChild(document.createElement("br"));
     container.appendChild(document.createElement("br"));
 
-    container.appendChild(document.createTextNode("initial " + (i + 1)));
+    var label = document.createElement("label");
+    label.setAttribute('for', "colFormLabelLg");
+    label.setAttribute("class", "col-sm-2 col-form-label col-form-label-lg");
+
+    label.appendChild(document.createTextNode("initial " + (i + 1)))
+    container.appendChild(label);
+
+
     // Create an <input> element, set its type and name attributes
     var input = document.createElement("input");
     input.type = "text";
     input.name = "initial";
+    input.class = "form-control form-control-lg";
     input.id = 'initial'
     container.appendChild(input);
 
@@ -565,6 +579,7 @@ document.getElementById(`viewHistory`).addEventListener('click', async function 
 
 });
 
+//add new coments to the article database
 document.getElementById('addcommentic').addEventListener('click', async (event) => {
   event.preventDefault();
   console.log('added');
@@ -592,6 +607,15 @@ document.getElementById('addcommentic').addEventListener('click', async (event) 
   });
   let body = await response.json()
   console.log(body)
+  try {
+    const commentsection = document.getElementById('commentsection')
+    commenTemplate(commentsection, body)
+  } catch (e) {
+
+    console.log(e);
+
+  }
+
 });
 
 

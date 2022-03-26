@@ -146,8 +146,8 @@ const articles = [
         `,
         "comments": [
             {
-                "name": "abcd12",
-                "text": "das ist ganz gut"
+                "name": "math009",
+                "text": "How can I know this graph is actually planar?"
             },
 
             {
@@ -237,17 +237,14 @@ const articles = [
                 "authorID": 1
             },
             {
-                "name": "Li Peng  Wei Dengab",
+                "name": "Li Peng",
                 "authorID": 2
             },
             {
                 "name": "Kexin Huang ",
                 "authorID": 3
-            },
-            {
-                "name": " Wei Dengab",
-                "authorID": 4
             }
+
         ],
         "publisher": "International Journal of Disaster Risk Reduction",
         "publishinfo": [
@@ -744,6 +741,22 @@ app.post('/comments/addcomment', function (req, res) {
 
     const body = req.body
     console.log('request body', body);
+
+    for (let i = 0; i < articles.length; i++) {
+
+        let article = articles[i];
+        if (article.id == id) {
+            let comments = article.comments
+            comments.push(body)
+            console.log(comments);
+
+
+
+
+
+        }
+
+    };
     res.json(body)
 });
 
