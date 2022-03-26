@@ -5,7 +5,7 @@ const divContainer = document.getElementById("articlecontainer");
 const homartDiv = document.getElementById("homearticlediv")
 const searchrst = document.getElementById("searchresult")
 const citeresult = document.getElementById("citeresult")
-const citehistory = document.getElementById("citehistoria")
+const citehistory = document.getElementById("allHistories")
 const fullresult = document.getElementById("fullarticle")
 
 
@@ -359,115 +359,219 @@ function addFields() {
 }
 
 
+for (let i = 1; i < 4; i++) {
 
-
-function citeForm() {
   // post a citation  in json format
   //determine a type of citation according to value of button
   // returned a cited json string
-  const citeforms = document.querySelectorAll(".submit_citation");
-  citeforms.forEach(citeform => {
+  const citeform = document.getElementById(`submit_citation_${i}`)
 
-    citeform.addEventListener('click', async function (event) {
+  citeform.addEventListener('click', async function (event) {
 
-      event.preventDefault();
+    event.preventDefault();
 
+    console.log('clicked me');
+    const id = citeform.value;
+    console.log(id);
+    let ref_no = document.getElementById('refno').value;
 
-      console.log('clicked me');
-      const id = citeform.value;
-      console.log(id);
-      let ref_no = document.getElementById('refno').value;
+    console.log(ref_no);
+    let initial = document.getElementsByName('initial');
 
-      console.log(ref_no);
-      let initial = document.getElementsByName('initial');
+    let surname = document.getElementsByName('surname');
 
-      let surname = document.getElementsByName('surname');
-
-      let authors = []
+    let authors = []
 
 
-      for (var i = 0; i < initial.length; i++) {
-        let author = {
-          'initial': initial[i].value,
-          'surname': surname[i].value
-        };
-
-
-        authors.push(author)
+    for (var i = 0; i < initial.length; i++) {
+      let author = {
+        'initial': initial[i].value,
+        'surname': surname[i].value
       };
 
 
-      let title = document.getElementById('title').value;
-      let volume = document.getElementById('vol').value;
-      let issue = document.getElementById('i').value;
-      let pageno = document.getElementById('pp').value
-      let month = document.getElementById('mon').value;
-      let day = document.getElementById('day').value;
-      let year = document.getElementById('year').value;
-      let doi = document.getElementById('doi').value;
+      authors.push(author)
+    };
 
-      let referencedata = {
-        'referencenumber': ref_no,
 
-        'title': title,
-        'vol': volume,
-        'issue': issue,
-        'pp': pageno,
-        'month': month,
-        'day': day,
-        'year': year,
-        'doi': doi,
-        'authors': authors
+    let title = document.getElementById('title').value;
+    let volume = document.getElementById('vol').value;
+    let issue = document.getElementById('i').value;
+    let pageno = document.getElementById('pp').value
+    let month = document.getElementById('mon').value;
+    let day = document.getElementById('day').value;
+    let year = document.getElementById('year').value;
+    let doi = document.getElementById('doi').value;
 
-      };
+    let referencedata = {
+      'referencenumber': ref_no,
 
-      //if (validateForm(title, volume, issue) != false) {
-      let response = await fetch('http://127.0.0.1:8090/newcite?id=' + id, {
-        method: 'POST',
-        headers: {
-          'Content-Type': 'application/json'
-        },
-        body: JSON.stringify(referencedata)
-      });
+      'title': title,
+      'vol': volume,
+      'issue': issue,
+      'pp': pageno,
+      'month': month,
+      'day': day,
+      'year': year,
+      'doi': doi,
+      'authors': authors
 
-      let body = await response.json();
-      console.log('body is', body);
+    };
 
-      try {
+    //if (validateForm(title, volume, issue) != false) {
+    let response = await fetch('http://127.0.0.1:8090/newcite?id=' + id, {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json'
+      },
+      body: JSON.stringify(referencedata)
+    });
 
-        citeresult.innerHTML = `
+    let body = await response.json();
+    console.log('body is', body);
+
+    try {
+
+      citeresult.innerHTML = `
           <h3 class="card-title">
           Your Citation Here:
           </h3>
           `;
-        console.log("got request")
-        console.log(body);
-        //console.log(citedata);
+      console.log("got request")
+      console.log(body);
+      //console.log(citedata);
 
 
-        //only return the last updated list of referencedata to index.js
+      //only return the last updated list of referencedata to index.js
 
 
-        let item = document.createElement('li')
-        item.innerHTML = ''
-        item.innerHTML = body;
-        item.innerHTML += `
+      let item = document.createElement('li')
+      item.innerHTML = ''
+      item.innerHTML = body;
+      item.innerHTML += `
         <br>
         <br>
         <button  class="btn btn-lg btn-primary toclear"  onclick='clearCiteResult()' >Clear</button>
         `
-        citeresult.appendChild(item);
+      citeresult.appendChild(item);
 
 
-      } catch (e) {
+    } catch (e) {
 
-        console.log(e);
+      console.log(e);
 
-      }
+    }
+  })
+
+}
+
+// function citeForm() {
+//   // post a citation  in json format
+//   //determine a type of citation according to value of button
+//   // returned a cited json string
+//   const citeforms = document.querySelectorAll(".submit_citation");
+//   citeforms.forEach(citeform => {
+
+//     citeform.addEventListener('click', async function (event) {
+
+//       event.preventDefault();
+
+
+//       console.log('clicked me');
+//       const id = citeform.value;
+//       console.log(id);
+//       let ref_no = document.getElementById('refno').value;
+
+//       console.log(ref_no);
+//       let initial = document.getElementsByName('initial');
+
+//       let surname = document.getElementsByName('surname');
+
+//       let authors = []
+
+
+//       for (var i = 0; i < initial.length; i++) {
+//         let author = {
+//           'initial': initial[i].value,
+//           'surname': surname[i].value
+//         };
+
+
+//         authors.push(author)
+//       };
+
+
+//       let title = document.getElementById('title').value;
+//       let volume = document.getElementById('vol').value;
+//       let issue = document.getElementById('i').value;
+//       let pageno = document.getElementById('pp').value
+//       let month = document.getElementById('mon').value;
+//       let day = document.getElementById('day').value;
+//       let year = document.getElementById('year').value;
+//       let doi = document.getElementById('doi').value;
+
+//       let referencedata = {
+//         'referencenumber': ref_no,
+
+//         'title': title,
+//         'vol': volume,
+//         'issue': issue,
+//         'pp': pageno,
+//         'month': month,
+//         'day': day,
+//         'year': year,
+//         'doi': doi,
+//         'authors': authors
+
+//       };
+
+//       //if (validateForm(title, volume, issue) != false) {
+//       let response = await fetch('http://127.0.0.1:8090/newcite?id=' + id, {
+//         method: 'POST',
+//         headers: {
+//           'Content-Type': 'application/json'
+//         },
+//         body: JSON.stringify(referencedata)
+//       });
+
+//       let body = await response.json();
+//       console.log('body is', body);
+
+//       try {
+
+//         citeresult.innerHTML = `
+//           <h3 class="card-title">
+//           Your Citation Here:
+//           </h3>
+//           `;
+//         console.log("got request")
+//         console.log(body);
+//         //console.log(citedata);
+
+
+//         //only return the last updated list of referencedata to index.js
+
+
+//         let item = document.createElement('li')
+//         item.innerHTML = ''
+//         item.innerHTML = body;
+//         item.innerHTML += `
+//         <br>
+//         <br>
+//         <button  class="btn btn-lg btn-primary toclear"  onclick='clearCiteResult()' >Clear</button>
+//         `
+//         citeresult.appendChild(item);
+
+
+//       } catch (e) {
+
+//         console.log(e);
+
+//       }
 
 
 
-    });
+//     });
 
 
 
@@ -477,9 +581,9 @@ function citeForm() {
 
 
 
-  });
+//   });
 
-};
+// };
 
 
 
@@ -521,42 +625,76 @@ function clearCiteResult() {
 
 };
 
-//view history of your citations
-function viewHistory() {
-  const histbtns = document.querySelectorAll('.toHistoria')
-  histbtns.forEach(histbtn => {
-    histbtn.addEventListener('click', async (event) => {
-      event.preventDefault();
-      console.log('hihi');
 
 
 
+document.getElementById(`viewHistory`).addEventListener('click', async function (event) {
 
-      let response = await fetch('http://127.0.0.1:8090/citations/hist');
+  event.preventDefault();
+
+  let response = await fetch('http://127.0.0.1:8090/citations/hist');
 
       let body = await response.json()
       console.log(body)
 
-
-
-
       citehistory.innerHTML = ''
-      citehistory.innerHTML = `
-      ${body}
-      `;
-      citehistory.innerHTML += `
+
+      var arrayLength = body.length;
+      for (var i = 1; i < arrayLength; i++) {
+        citehistory.innerHTML += `
+        ${body[i]}
         <br>
-        <br>
-        <button  class="btn btn-lg btn-primary toHistoria"  onclick='viewHistory() ' >View History</button>
-        `
+        `;
+      }
+
+      // citehistory.innerHTML += `
+      // <br>
+      // <br>
+      // <button  class="btn btn-lg btn-primary toHistoria" id="viewHistory" >View History</button>
+      // `
+
+    });
 
 
-    })
-  });
+
+//view history of your citations
+// function viewHistory() {
+//   const histbtns = document.querySelectorAll('.toHistoria')
+//   histbtns.forEach(histbtn => {
+//     histbtn.addEventListener('click', async (event) => {
+//       event.preventDefault();
+      
 
 
 
 
-}
+//       let response = await fetch('http://127.0.0.1:8090/citations/hist');
+
+//       let body = await response.json()
+//       console.log(body)
+
+//       citehistory.innerHTML = ''
+
+//       var arrayLength = body.length;
+//       for (var i = 0; i < arrayLength; i++) {
+//         citehistory.innerHTML = `
+//         ${body[i]}
+//         <br>
+//         `;
+//       }
+
+//       citehistory.innerHTML += `
+//       <br>
+//       <br>
+//       <button  class="btn btn-lg btn-primary toHistoria"  onclick='viewHistory() ' >View History</button>
+//       `
+
+//     })
+//   });
+
+
+
+
+// }
 
 

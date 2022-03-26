@@ -250,9 +250,9 @@
             
             <!--  -->
           </form>
-          <p><button class="btn btn-lg btn-primary submit_citation"  onclick="citeForm()" id="submit_citation"  value='1' >Submit IEEE citation</button></p>
-            <p><button class="btn btn-lg btn-primary submit_citation"  onclick="citeForm()" id="submit_citation"  value='2' >Submit APA citation</button></p>
-            <p><button class="btn btn-lg btn-primary submit_citation" onclick="citeForm()" id="submit_citation"  value='3' >Submit Vancouver citation</button></p>
+          <p><button class="btn btn-lg btn-primary submit_citation" id="submit_citation_1"  value='1' >Submit IEEE citation</button></p>
+            <p><button class="btn btn-lg btn-primary submit_citation"  id="submit_citation_2"  value='2' >Submit APA citation</button></p>
+            <p><button class="btn btn-lg btn-primary submit_citation" id="submit_citation_3"  value='3' >Submit Vancouver citation</button></p>
         </div>
 
             <div class="col" >
@@ -269,10 +269,11 @@
               <div class="card" >
                 <div class="card-body" id="citehistoria">
                   <h3 class="card-title">Your citation history:</h3>
-                  
+                  <div id="allHistories">
+
                   <!-- <p class="card-text">Some quick example text to build on the card title and make up the bulk of the card's content.</p> -->
-                  
-                  <button  class="btn btn-lg btn-primary toHistoria"  onclick='viewHistory() ' >View History</button>
+                  </div>
+                  <button  class="btn btn-lg btn-primary toHistoria" id="viewHistory" >View History</button>
                 </div>
               </div>
             </div>
