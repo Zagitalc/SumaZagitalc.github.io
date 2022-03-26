@@ -1,37 +1,35 @@
+/* eslint-disable quote-props */
+/* eslint-disable space-before-function-paren */
+/* eslint-disable quotes */
 
-
-const main = document.getElementById("myhome")
+const main = document.getElementById('myhome');
 const divContainer = document.getElementById("articlecontainer");
-const homartDiv = document.getElementById("homearticlediv")
-const searchrst = document.getElementById("searchresult")
-const citeresult = document.getElementById("citeresult")
-const citehistory = document.getElementById("allHistories")
-const fullresult = document.getElementById("fullarticle")
-
+const homartDiv = document.getElementById("homearticlediv");
+const searchrst = document.getElementById("searchresult");
+const citeresult = document.getElementById("citeresult");
+const citehistory = document.getElementById("allHistories");
+const fullresult = document.getElementById("fullarticle");
 
 function loadmain() {
+  // eslint-disable-next-line semi
   main.style.display = "block"
-  homartDiv.style.display = "block"
-  divContainer.style.display = "none"
-  fullresult.style.display = "none"
-
+  homartDiv.style.display = "block";
+  divContainer.style.display = "none";
+  fullresult.style.display = "none";
 }
 function loadsearchrst() {
-  divContainer.style.display = "block"
-  main.style.display = "none"
-  searchrst.style.display = "block"
-  homartDiv.style.display = "none"
-  fullresult.style.display = "none"
-
-
+  divContainer.style.display = "block";
+  main.style.display = "none";
+  searchrst.style.display = "block";
+  homartDiv.style.display = "none";
+  fullresult.style.display = "none";
 }
 function loadFullPage() {
-  fullresult.style.display = "block"
-  divContainer.style.display = "none"
-  main.style.display = "none"
-  searchrst.style.display = "none"
-  homartDiv.style.display = "none"
-
+  fullresult.style.display = "block";
+  divContainer.style.display = "none";
+  main.style.display = "none";
+  searchrst.style.display = "none";
+  homartDiv.style.display = "none";
 }
 
 function author(authos) {
@@ -39,82 +37,70 @@ function author(authos) {
   <h5>Authors: 
   
   ${authos.map(function (author) {
-    return `${author.name}`
+    return `${author.name}`;
   }).join(', ')}
   </h5>
-  `
+  `;
 };
 
-
+// eslint-disable-next-line no-unused-vars
 function authordetails(authos) {
   return `
   <h5>Authors: 
   
   ${authos.map(function (author) {
-    return `${author.initial}, ${author.surname}`
+    return `${author.initial}, ${author.surname}`;
   }).join(', ')}
   </h5>
-  `
+  `;
 }
-function commentdetails(comments) {
-  return `
-  <h5>Authors: 
-  
-  ${authos.map(function (comment) {
-    return `
-    <h4 class='lead'>${comment.name}</h4>
-    <br>
-    <br>
-    <h5>${comment.text}<h5>`
-  }).join('\n ')}
-  </h5>
-  `
-}
+// eslint-disable-next-line no-unused-vars
+// function commentdetails(comments) {
+//   return `
+//   <h5>Authors:
 
+//   ${authos.map(function (comment) {
+//     return `
+//     <h4 class='lead'>${comment.name}</h4>
+//     <br>
+//     <br>
+//     <h5>${comment.text}<h5>`;
+//   }).join('\n ')}
+//   </h5>
+//   `;
+// }
 
-
-
+// eslint-disable-next-line no-unused-vars
 function backHome() {
-
+  // eslint-disable-next-line no-unused-vars
   const homebtns = document.querySelectorAll(".tohome")
     .forEach(homebtn => {
-      //const homebtn = document.getElementById("homebtn")
       homebtn.addEventListener("click", function () {
-
         loadmain();
         window.scrollTo(0, 0);
-
-
-
       });
-
     });
 }
 
-//load article on homepage
+// load article on homepage
 async function loadarticleJson() {
+  // eslint-disable-next-line no-undef
   const response = await fetch('http://127.0.0.1:8090/articles');
 
   const data = await response.json();
   return data;
-
 }
 
-//load all articles from json
+// load all articles from json
 window.addEventListener("DOMContentLoaded", async (event) => {
-
-  event.preventDefault()
-
+  event.preventDefault();
 
   try {
     const homearticles = await loadarticleJson();
 
-    //const divContainer = document.getElementById("articlecontainer");
-
-
+    // const divContainer = document.getElementById("articlecontainer");
 
     homearticles.forEach(article => {
-
       homartDiv.innerHTML +=
         `<hr class="featurette-divider">
         <div class="row featurette">
@@ -139,48 +125,32 @@ window.addEventListener("DOMContentLoaded", async (event) => {
           </div>
 
        `;
-      //readmore to load specific articles
-      //href='/articles?id=${article.id}'
-      //onclick ='showFull()'
-
     });
-
-
   } catch (e) {
-
     console.log(e);
-
   }
 });
 
+// load full article based on specific article
 
-
-//load full article based on specific article
-//console.log(x)
+// eslint-disable-next-line no-unused-vars
 function showFull() {
-  const buttons = document.querySelectorAll('.loadMore')
-
+  const buttons = document.querySelectorAll('.loadMore');
 
   buttons.forEach(button => {
-
-
     button.addEventListener('click', async (event) => {
       event.preventDefault();
-      const id = button.value
+      const id = button.value;
 
-      console.log(id)
+      console.log(id);
 
-
-
-      //console.log(id)
-
-
+      // eslint-disable-next-line no-undef
       const response = await fetch('http://127.0.0.1:8090/reqarticle?id=' + id);
 
-      console.log(response)
-      const fullarticle = await response.json();
-      console.log('fullarticle is', fullarticle)
-
+      console.log(response);
+      let fullarticle = await response.json();
+      console.log('fullarticle is', fullarticle);
+      console.log(fullarticle);
       const template =
         ` 
       <hr class="featurette-divider">
@@ -214,46 +184,39 @@ function showFull() {
           
         </div>
       </div > 
-      `
+      `;
       const commentitle = `
       <div class="col-md-5">
         <h4 class="featurette-heading">Comments</h4>
-          <h5 class="lead">comments to be shown here</h5>
+          
       </div>
       
       
-      `
-      const fullarticlesection = document.getElementById('fullarticlesection')
-      fullarticlesection.innerHTML = ''
-      fullarticlesection.innerHTML += template
+      `;
+      const fullarticlesection = document.getElementById('fullarticlesection');
+      fullarticlesection.innerHTML = '';
+      fullarticlesection.innerHTML += template;
 
       //
       const storeid = document.createElement('p');
 
-      //set id
+      // set id
       storeid.setAttribute("id", "fullarticleid");
       storeid.setAttribute("value", fullarticle.id);
 
-      fullarticlesection.appendChild(storeid)
+      fullarticlesection.appendChild(storeid);
 
+      const commentsection = document.getElementById('commentsection');
+      commentsection.innerHTML = '';
+      commentsection.innerHTML += commentitle;
 
-
-
-      const commentsection = document.getElementById('commentsection')
-      commentsection.innerHTML = ''
-      commentsection.innerHTML += commentitle
-
-      const comments = fullarticle.comments
-      for (var i = 0; i < comments.length; i++) {
-        commenTemplate(commentsection, comments[i])
-
-
+      const comments = fullarticle.comments;
+      for (let i = 0; i < comments.length; i++) {
+        commenTemplate(commentsection, comments[i]);
       }
-      loadFullPage()
+      loadFullPage();
       window.scrollTo(0, 0);
-
     });
-
   });
 }
 
@@ -270,48 +233,41 @@ function commenTemplate(commentsection, comments) {
           
         </a>        
         
-        `
+        `;
 }
 
-
-
-
-
-//search and load related articles
+// search and load related articles
 async function loadJson(params) {
+  // eslint-disable-next-line no-undef
   const response = await fetch('http://127.0.0.1:8090/searchpoint?' + params);
-  //method :'GET'
-  //console.log("got respose");
+  // method :'GET'
+  // console.log("got respose");
   const data = await response.json();
   return data;
-
 }
 
-const sf = document.getElementById("searchform")
+const sf = document.getElementById("searchform");
 sf.addEventListener("submit", async (event) => {
-
-  event.preventDefault()
-  const data = new FormData(sf)
-  const params = new URLSearchParams(data)
+  event.preventDefault();
+  // eslint-disable-next-line no-undef
+  const data = new FormData(sf);
+  const params = new URLSearchParams(data);
   console.log(params);
 
   try {
     const articles = await loadJson(params);
 
-
-    divContainer.innerHTML = ""
+    divContainer.innerHTML = "";
     divContainer.innerHTML =
       `<hr class="featurette-divider">
         <div class="col-md-7">
           <h3  class="text-center"> Search Results.</h3>
               
         </div>
-    `
+    `;
     console.log(divContainer);
 
-
     articles.forEach(article => {
-
       divContainer.innerHTML +=
         `<hr class="featurette-divider">
       <div class="row featurette">
@@ -337,128 +293,112 @@ sf.addEventListener("submit", async (event) => {
         </div>
 
        `;
-
     });
 
-    loadsearchrst()
+    loadsearchrst();
     window.scrollTo(0, 0);
-
   } catch (e) {
     this.alert(e);
     console.log(e);
-
   }
 });
 
-
-//add form fields with reference to https://stackoverflow.com/questions/14853779/adding-input-elements-dynamically-to-form
+// add form fields with reference to https://stackoverflow.com/questions/14853779/adding-input-elements-dynamically-to-form
+// eslint-disable-next-line no-unused-vars
 function addFields() {
+  const number = document.getElementById("selectaddfield").value;
 
-  var number = document.getElementById("selectaddfield").value;
-
-  var container = document.getElementById("inputcontainer");
+  const container = document.getElementById("inputcontainer");
 
   while (container.hasChildNodes()) {
     container.removeChild(container.lastChild);
   }
-  for (i = 0; i < number; i++) {
+  for (let i = 0; i < number; i++) {
     // Append a node with a random text
-    //container.appendChild();
+    // container.appendChild();
     // Create an <input> element, set its type and name attributes
-    var label = document.createElement("label");
+    const label = document.createElement("label");
     label.setAttribute('for', "colFormLabelLg");
     label.setAttribute("class", "col-sm-2 col-form-label col-form-label-lg");
 
-    label.appendChild(document.createTextNode("surname " + (i + 1)))
+    label.appendChild(document.createTextNode("surname " + (i + 1)));
     container.appendChild(label);
 
-    var input = document.createElement("input");
+    const input = document.createElement("input");
     input.type = "text";
     input.class = "form-control form-control-lg";
     input.name = "surname";
-    input.id = 'surname'
+    input.id = 'surname';
     container.appendChild(input);
 
-
-
-    // Append a line break 
+    // Append a line break
     container.appendChild(document.createElement("br"));
     container.appendChild(document.createElement("br"));
 
-    var label = document.createElement("label");
-    label.setAttribute('for', "colFormLabelLg");
-    label.setAttribute("class", "col-sm-2 col-form-label col-form-label-lg");
+    const label2 = document.createElement("label");
+    label2.setAttribute('for', "colFormLabelLg");
+    label2.setAttribute("class", "col-sm-2 col-form-label col-form-label-lg");
 
-    label.appendChild(document.createTextNode("initial " + (i + 1)))
+    label2.appendChild(document.createTextNode("initial " + (i + 1)));
     container.appendChild(label);
 
-
     // Create an <input> element, set its type and name attributes
-    var input = document.createElement("input");
-    input.type = "text";
-    input.name = "initial";
-    input.class = "form-control form-control-lg";
-    input.id = 'initial'
-    container.appendChild(input);
+    const input2 = document.createElement("input");
+    input2.type = "text";
+    input2.name = "initial";
+    input2.class = "form-control form-control-lg";
+    input2.id = 'initial';
+    container.appendChild(input2);
 
-
-
-    // Append a line break 
+    // Append a line break
     container.appendChild(document.createElement("br"));
     container.appendChild(document.createElement("br"));
-
 
     console.log('container', container);
   }
 }
 
-
 for (let i = 1; i < 4; i++) {
-
   // post a citation  in json format
-  //determine a type of citation according to value of button
+  // determine a type of citation according to value of button
   // returned a cited json string
-  const citeform = document.getElementById(`submit_citation_${i}`)
+  const citeform = document.getElementById(`submit_citation_${i}`);
 
   citeform.addEventListener('click', async function (event) {
-
     event.preventDefault();
 
     console.log('clicked me');
     const id = citeform.value;
     console.log(id);
-    let ref_no = document.getElementById('refno').value;
+    const refno = document.getElementById('refno').value;
 
-    console.log(ref_no);
-    let initial = document.getElementsByName('initial');
+    console.log(refno);
+    const initial = document.getElementsByName('initial');
 
-    let surname = document.getElementsByName('surname');
+    const surname = document.getElementsByName('surname');
 
-    let authors = []
+    const authors = [];
 
-
-    for (var i = 0; i < initial.length; i++) {
-      let author = {
+    for (let i = 0; i < initial.length; i++) {
+      const author = {
         'initial': initial[i].value,
         'surname': surname[i].value
       };
 
-
-      authors.push(author)
+      authors.push(author);
     };
 
+    const title = document.getElementById('title').value;
+    const volume = document.getElementById('vol').value;
+    const issue = document.getElementById('i').value;
+    const pageno = document.getElementById('pp').value;
+    const month = document.getElementById('mon').value;
+    const day = document.getElementById('day').value;
+    const year = document.getElementById('year').value;
+    const doi = document.getElementById('doi').value;
 
-    let title = document.getElementById('title').value;
-    let volume = document.getElementById('vol').value;
-    let issue = document.getElementById('i').value;
-    let pageno = document.getElementById('pp').value
-    let month = document.getElementById('mon').value;
-    let day = document.getElementById('day').value;
-    let year = document.getElementById('year').value;
-    let doi = document.getElementById('doi').value;
-
-    let referencedata = {
-      'referencenumber': ref_no,
+    const referencedata = {
+      'referencenumber': refno,
 
       'title': title,
       'vol': volume,
@@ -472,73 +412,61 @@ for (let i = 1; i < 4; i++) {
 
     };
 
-    //if (validateForm(title, volume, issue) != false) {
-    let response = await fetch('http://127.0.0.1:8090/newcite?id=' + id, {
+    // cif (validateForm(title, volume, issue) != false) {
+    // eslint-disable-next-line no-undef
+    const response = await fetch('http://127.0.0.1:8090/newcite?id=' + id, {
       method: 'POST',
       headers: {
         'Content-Type': 'application/json'
       },
       body: JSON.stringify(referencedata)
-    });
 
-    let body = await response.json();
+    });
+    console.log();
+    const body = await response.json();
     console.log('body is', body);
 
     try {
-
       citeresult.innerHTML = `
           <h3 class="card-title">
           Your Citation Here:
           </h3>
           `;
-      console.log("got request")
+      console.log("got request");
       console.log(body);
-      //console.log(citedata);
+      // console.log(citedata);
 
+      // only return the last updated list of referencedata to index.js
 
-      //only return the last updated list of referencedata to index.js
-
-
-      let item = document.createElement('li')
-      item.innerHTML = ''
+      const item = document.createElement('li');
+      item.innerHTML = '';
       item.innerHTML = body;
       item.innerHTML += `
         <br>
         <br>
         <button  class="btn btn-lg btn-primary toclear"  onclick='clearCiteResult()' >Clear</button>
-        `
+        `;
       citeresult.appendChild(item);
-
-
     } catch (e) {
-
       console.log(e);
-
     }
-  })
-
+  });
 }
 
-
-
-
-
+// eslint-disable-next-line no-unused-vars
 function validateForm(title, volume, issue) {
-
-
-
-  if (title, volume, issue == "") {
+  // eslint-disable-next-line no-sequences
+  if (title, volume, issue === "") {
+    // eslint-disable-next-line no-undef
     alert("Name must be filled out");
     return false;
   }
-
 }
 
+// eslint-disable-next-line no-unused-vars
 function clearCiteResult() {
-
-  const clearbtns = document.querySelectorAll('.toclear')
+  const clearbtns = document.querySelectorAll('.toclear');
   clearbtns.forEach(clearbtn => {
-
     clearbtn.addEventListener('click', () => {
       console.log('clicked');
       citeresult.innerHTML = `
@@ -547,76 +475,63 @@ function clearCiteResult() {
       <!-- <p class="card-text">Some quick example text to build on the card title and make up the bulk of the card's content.</p> -->
       
       <button  class="btn btn-lg btn-primary toclear"  onclick='clearCiteResult()' >Clear</button>
-        `
-    })
-
+        `;
+    });
   });
-
 };
 
-
-
-
 document.getElementById(`viewHistory`).addEventListener('click', async function (event) {
-
   event.preventDefault();
 
-  let response = await fetch('http://127.0.0.1:8090/citations/hist');
+  // eslint-disable-next-line no-undef
+  const response = await fetch('http://127.0.0.1:8090/citations/hist');
 
-  let body = await response.json()
-  console.log(body)
+  const body = await response.json();
+  console.log(body);
 
-  citehistory.innerHTML = ''
+  citehistory.innerHTML = "";
 
-  var arrayLength = body.length;
-  for (var i = 1; i < arrayLength; i++) {
+  const arrayLength = body.length;
+  for (let i = 1; i < arrayLength; i++) {
     citehistory.innerHTML += `
         • ${body[i]}
         <br>
         <br>
         `;
   }
-
 });
 
-//add new coments to the article database
+// add new coments to the article database
 document.getElementById('addcommentic').addEventListener('click', async (event) => {
   event.preventDefault();
   console.log('added');
-  const yourcommentname = document.getElementById('yourcommentname').value
-  const yourcomment = document.getElementById('yourcomment').value
-  const id = document.getElementById('fullarticleid').getAttribute('value')
+  const yourcommentname = document.getElementById('yourcommentname').value;
+  const yourcomment = document.getElementById('yourcomment').value;
+  const id = document.getElementById('fullarticleid').getAttribute('value');
   console.log('full article id ist', id);
   console.log('comment', yourcomment);
 
   const commetbox = {
 
     "name": yourcommentname,
-    "text": yourcomment,
+    "text": yourcomment
 
-  }
+  };
 
-
-
-  let response = await fetch('http://127.0.0.1:8090/comments/addcomment?id=' + id, {
+  // eslint-disable-next-line no-undef
+  const response = await fetch('http://127.0.0.1:8090/comments/addcomment?id=' + id, {
     method: 'POST',
     headers: {
       'Content-Type': 'application/json'
     },
     body: JSON.stringify(commetbox)
   });
-  let body = await response.json()
-  console.log(body)
+  const body = await response.json();
+  console.log(body);
   try {
-    const commentsection = document.getElementById('commentsection')
-    commenTemplate(commentsection, body)
+    const commentsection = document.getElementById('commentsection');
+    commenTemplate(commentsection, body);
   } catch (e) {
-
     console.log(e);
-
   }
-
 });
-
-
-

@@ -1,14 +1,16 @@
-const express = require('express');
+/* eslint-disable brace-style */
+/* eslint-disable no-tabs */
+/* eslint-disable quote-props */
+/* eslint-disable quotes */
+const express = require("express");
 const app = express();
 
-app.use(express.static(`client`));
+app.use(express.static('client'));
 app.use(express.json());
 
-var bodyParser = require('body-parser');
-
+const bodyParser = require('body-parser');
 
 app.use(bodyParser.urlencoded({ extended: false }));
-
 
 const articles = [
     {
@@ -35,7 +37,6 @@ const articles = [
         ],
         "date": "2021",
         "doi": "https://doi.org/10.1016/j.toxrep.2021.08.010",
-
 
         "image": "/pictures/covidarticle.jpg",
         "highlights": `<p>Bulk of COVID-19 per capita deaths occur in elderly with high comorbidities.</p>
@@ -76,12 +77,12 @@ const articles = [
         "comments": [
             {
                 "name": "abcd12",
-                "text": "das ist ganz gut"
+                "text": "Go beyond the attitudes of individuals and focus more on what governments must do to build people’s trust and ensure easy access to vaccines for all."
             },
 
             {
                 "name": "plxy99",
-                "text": "doch!"
+                "text": "The findings are consistent with the hypothesis"
             }
         ]
     },
@@ -107,8 +108,6 @@ const articles = [
                 "authorID": 4
             }
 
-
-
         ],
         "publisher": "Theoretical Computer Science",
         "publishinfo": [
@@ -120,7 +119,6 @@ const articles = [
         ],
         "date": "2021",
         "doi": "https://doi.org/10.1016/j.tcs.2022.01.024",
-
 
         "image": "/pictures/A-3-connected-maximal-planar-graph-with-d-5-First-suppose-that-d-T-5-In-this-case.png",
         "highlights": `
@@ -185,7 +183,6 @@ const articles = [
         "date": "July 2021",
         "doi": "https://doi.org/10.1016/j.ascom.2021.100489",
 
-
         "image": "/pictures/escape-paper-astornomy.jpg",
         "highlights": `
         </p>
@@ -204,8 +201,8 @@ const articles = [
         and archiving is scientifically essential for generating reliable, reproducible results.
          We present here the real-time processing (RTP) system for the Hydrogen Epoch of 
          Reionization Array (HERA), a radio interferometer endeavoring to provide the first 
-         detection of the highly redshifted 21 cm signal from Cosmic Dawn and the Epoch of 
-         \Reionization by an interferometer. The RTP system consists of analysis routines run
+        detection of the highly redshifted 21 cm signal from Cosmic Dawn and the Epoch of 
+        Reionization by an interferometer. The RTP system consists of analysis routines run
           on raw data shortly after they are acquired, such as calibration and detection of 
           radio-frequency interference (RFI) events. RTP works closely with the Librarian, the
            HERA data storage and transfer manager which automatically ingests data and transfers
@@ -216,13 +213,13 @@ const articles = [
               successful scientific analysis of these data.</p>`,
         "comments": [
             {
-                "name": "abcd12",
-                "text": "das ist ganz gut"
+                "name": "trgv14",
+                "text": "Citizens need to be informed by the best available data. "
             },
 
             {
                 "name": "plxy99",
-                "text": "doch!"
+                "text": "This finding had more depth than anything I ever knew."
             }
         ]
     },
@@ -256,7 +253,6 @@ const articles = [
         ],
         "date": "March 2022",
         "doi": "https://doi.org/10.1016/j.ijdrr.2022.102795",
-
 
         "image": "/pictures/riskreduction.jpg",
         "highlights": `
@@ -298,13 +294,13 @@ const articles = [
         `,
         "comments": [
             {
-                "name": "abcd12",
-                "text": "das ist ganz gut"
+                "name": "evhf12",
+                "text": "This ist flawless research!"
             },
 
             {
                 "name": "plxy99",
-                "text": "doch!"
+                "text": "The importance of the concept of risk perception!"
             }
         ]
     },
@@ -338,7 +334,6 @@ const articles = [
         "date": "2019",
         "doi": "https://doi.org/10.1088/1748-9326/ab3db6",
 
-
         "image": "/pictures/article5.jpg",
         "highlights": `<p>The agriculture, forestry and other land use (AFOLU) sector accounts
         for 23% of net global anthropogenic greenhouse gas (GHG) emissions [1]. In order to 
@@ -370,12 +365,12 @@ const articles = [
         "comments": [
             {
                 "name": "abcd12",
-                "text": "das ist ganz gut"
+                "text": "I remain convinced that this manuscript is flawed"
             },
 
             {
                 "name": "plxy99",
-                "text": "doch!"
+                "text": "Carbon footprint of citizens is the real root of the problme!"
             }
         ]
     },
@@ -407,7 +402,6 @@ const articles = [
         ],
         "date": "2020",
         "doi": "https://doi.org/10.1155/2020/4703286",
-
 
         "image": "/pictures/article6.jpg",
         "highlights": `<p>Yuri Gagarin was the first human to journey into outer space. 
@@ -448,8 +442,8 @@ const articles = [
             },
 
             {
-                "name": "plxy99",
-                "text": "doch!"
+                "name": "trvb99",
+                "text": "the original manuscript in another journal was full of flaws!"
             }
         ]
     },
@@ -482,7 +476,6 @@ const articles = [
         "date": "01 April 2020",
         "doi": "https://doi.org/10.1038/s41570-020-0173-4",
 
-
         "image": "/pictures/article7.jpg",
         "highlights": `<p>Phase engineering is more feasibly achieved in nanomaterials than in their bulk counterparts, because the growth of nanomaterials is greatly affected by their surface characteristics, in addition to kinetics and thermodynamics
         </p>
@@ -492,7 +485,7 @@ const articles = [
         "comments": [
             {
                 "name": "abcd12",
-                "text": "das ist ganz gut"
+                "text": "Splendid!"
             },
 
             {
@@ -502,7 +495,7 @@ const articles = [
         ]
     }
 
-]
+];
 
 const reftypes = [
     {
@@ -511,14 +504,14 @@ const reftypes = [
         "info": `
         [Reference number]	Initial. Surname, "Title of article," Title of journal, volume, issue number, pages, Abbreviated month day, year of publication.
 
-        `,
+        `
 
     },
     {
         "id": 2,
         "name": "APA",
         "info": ` Author(s). (Year of publication). Title of article.
-         Title of journal, Volume number(Issue), Page numbers.`,
+         Title of journal, Volume number(Issue), Page numbers.`
     },
     {
         "id": 3,
@@ -527,140 +520,97 @@ const reftypes = [
         Reference number.	Author(s). Title of article. Title of journal.
          Date of publication; Volume(issue):page numbers.
 
-        `,
+        `
     }
 ];
 
 const references = ["Your citation history: "];
 
-
-
-
-
-
-//database for all articles
+// database for all articles
 app.get('/articles', function (req, resp) {
-
-
-
-
-    if (articles == undefined || articles.length == 0) {
+    if (articles === undefined || articles.length === 0) {
         resp.status(404).json("Articles are undefined so no articles can be fetched");
-    }
-    else {
+    } else {
         resp.json(articles);
     }
-
-
 });
 
-
-
-//search for title by keyword, return the suitabble title
+// search for title by keyword, return the suitabble title
 app.get('/searchpoint', function (req, res) {
     const search = req.query.search;
-    let results = [];
+    const results = [];
 
-    if (search == '') {
+    if (search === '') {
         res.status(404).json("Nothing has been searched so no articles can be fetched");
-        return
-
+        return;
     }
-    if (articles == undefined || articles.length == 0) {
+    if (articles === undefined || articles.length === 0) {
         res.status(404).json("Articles are undefined so no articles can be fetched");
-        return
+        return;
     }
     for (let i = 0; i < articles.length; i++) {
-
-        let article = articles[i];
+        const article = articles[i];
         if (article.title.includes(search)) {
-            //insert at the last postion of the array
+            // insert at the last postion of the array
             results.push(article);
         }
-
     };
-    res.json(results)
-
+    res.json(results);
 });
 
-//load specified articles based on id
+// load specified articles based on id
 app.get('/reqarticle', function (req, res) {
     console.log('got req');
-    const id = req.query.id
+    const id = req.query.id;
 
     for (let i = 0; i < articles.length; i++) {
-
-        console.log('id ist', id)
-        let article = articles[i];
-        console.log(article.id)
+        console.log('id', id);
+        const article = articles[i];
+        console.log(article.id);
         if (articles[i].id == id) {
-            //insert at the last postion of the array
-            console.log('article ist', article)
-            res.json(article)
-        }
-        else if (id > articles.length) {
+            // insert at the last postion of the array
+            console.log('article', article);
+            res.json(article);
+        } else if (id > articles.length) {
             res.status(404).json(`Article ${id} is out of range. Not found!`);
-
         }
-
     };
-
-
-
 });
 
-//database for all science related citation types
+// database for all science related citation types
 app.get('/citations', function (req, res) {
-
-    if (reftypes == undefined || reftypes.length == 0) {
+    if (reftypes === undefined || reftypes.length === 0) {
         res.status(404).json("Citation types are undefined so no articles can be fetched");
-    }
-    else {
+    } else {
         res.json(reftypes);
     }
-
-
 });
 
-//gte  details of specific citation type
+// gte  details of specific citation type
 app.get('/citations/req', function (req, res) {
-    console.log('got req');
-    const id = req.query.id
+    const id = req.query.id;
 
     for (let i = 0; i < reftypes.length; i++) {
-
-        console.log('id ist', id)
-        let reftype = reftypes[i];
-        console.log(reftype.id)
-        if (reftypes[i].id == id) {
-
-            console.log('this type of citation ist', reftype)
-            res.json(reftype)
+        console.log('id ist', id);
+        const reftype = reftypes[i];
+        console.log(reftype.id);
+        if (reftypes[i].id === id) {
+            console.log('this type of citation ist', reftype);
+            res.json(reftype);
         }
         else if (id > reftypes.length) {
             res.status(404).json(`Article ${id} is out of range. Not found!`);
-
         }
-
     };
-
 });
 
-
-
-
-
-
-//create your own citation using app.post
+// create your own citation using app.post
 app.post('/newcite', function (req, res) {
-
-    console.log("got request");
-
-    console.log("req body is", req.body);
+    console.log("req body", req.body);
 
     const referencenumber = req.body.referencenumber;
 
-    const authors = req.body.authors
+    const authors = req.body.authors;
 
     const title = req.body.title;
     const volume = req.body.vol;
@@ -671,99 +621,74 @@ app.post('/newcite', function (req, res) {
     const year = req.body.year;
     const doi = req.body.doi;
 
-    const id = req.query.id
-    console.log('in server, id ist', id);
+    const id = req.query.id;
 
+    // eslint-disable-next-line space-before-function-paren
     function mapauthor(authors) {
         if (authors != null) {
             return `
         ${authors.map(function (author) {
                 return `${[author.initial.slice(0, 1).toUpperCase(), author.surname.substring(0, 1).toUpperCase() + author.surname.substring(1)].filter(Boolean).join(', ')}
-        `
+        `;
             }).filter(Boolean).join('. ')}
-        `
+        `;
         }
         else {
             console.log('not found');
-            return
         }
     };
-    var referencedata = 0
-    console.log('hi')
-    if (id == 1) {
-        //IEE
-        referencedata = "[" + referencenumber + "] " + mapauthor(authors) + '. "' + title + '", vol. ' + volume + ", no. " + issue + ", pp. " + pageno + ", "
-            + month + ". " + day + ". " + year + ". doi:\n" + doi + '\n'
+    let referencedata = 0;
+    console.log('hi');
+    if (id === 1) {
+        // IEE
+        referencedata = "[" + referencenumber + "] " + mapauthor(authors) + '. "' + title + '", vol. ' + volume + ", no. " + issue + ", pp. " + pageno + ", " +
+            month + ". " + day + ". " + year + ". doi:\n" + doi + '\n';
         // const author = {
-
-    } else if (id == 2) {
-        //APA 7TH
-        referencedata = mapauthor(authors) + '. (' + year + '), ' + title + ', ' + volume + "(" + issue + "), " + pageno
-            + ". doi:\n" + doi + '\n'
-
-    } else if (id == 3) {
-        //vancouver
-        //surname first (full)
-        referencedata = referencenumber + ".     " + mapauthor(authors) + '. "' + title + '",' + year + ". " + month + ". " + day + '; ' + volume + "(" + issue + "):" + pageno
-            + ". doi:\n" + doi + '\n'
-
-
+    } else if (id === 2) {
+        // APA 7TH
+        referencedata = mapauthor(authors) + '. (' + year + '), ' + title + ', ' + volume + "(" + issue + "), " + pageno +
+            ". doi:\n" + doi + '\n';
+    } else if (id === 3) {
+        // vancouver
+        // surname first (full)
+        referencedata = referencenumber + ".     " + mapauthor(authors) + '. "' + title + '",' + year + ". " + month + ". " + day + '; ' + volume + "(" + issue + "):" + pageno +
+            ". doi:\n" + doi + '\n';
+    } else if (id > 3) {
+        res.status(404).json(`cite type ${id} is out of range. Not found!`);
     }
-
-
 
     console.log("reference data is", referencedata);
 
-
-
-
     references.push(referencedata);
 
-    console.log("n server .js", references);
-    const k = res.json(references.at(-1));
-    //console.log(k);
+    console.log(references);
 });
 
-
 app.get('/citations/hist', function (req, res) {
-    if (references == undefined || references.length == 0) {
-        res.json('No history found')
-        return
+    if (references === undefined || references.length === 0) {
+        res.json('No history found');
+        return;
     }
 
     res.json(references);
-
 });
 
-//post comments
+// post comments
 app.post('/comments/addcomment', function (req, res) {
-    const id = req.query.id
+    const id = req.query.id;
 
-    const body = req.body
+    const body = req.body;
     console.log('request body', body);
 
     for (let i = 0; i < articles.length; i++) {
-
-        let article = articles[i];
-        if (article.id == id) {
-            let comments = article.comments
-            comments.push(body)
+        const article = articles[i];
+        if (article.id === id) {
+            const comments = article.comments;
+            comments.push(body);
             console.log(comments);
-
-
-
-
-
         }
-
     };
-    res.json(body)
+    res.json(body);
 });
 
-
-
-
-
 module.exports = app;
-
-
