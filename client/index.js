@@ -7,14 +7,14 @@ const searchrst = document.getElementById("searchresult")
 const citeresult = document.getElementById("citeresult")
 const citehistory = document.getElementById("allHistories")
 const fullresult = document.getElementById("fullarticle")
-
+const commentsection = document.getElementById('commentsection')
 
 function loadmain() {
   main.style.display = "block"
   homartDiv.style.display = "block"
   divContainer.style.display = "none"
   fullresult.style.display = "none"
-
+  commentsection.style.display = "none"
 }
 function loadsearchrst() {
   divContainer.style.display = "block"
@@ -22,7 +22,7 @@ function loadsearchrst() {
   searchrst.style.display = "block"
   homartDiv.style.display = "none"
   fullresult.style.display = "none"
-
+  commentsection.style.display = "none"
 
 }
 function loadFullPage() {
@@ -31,7 +31,7 @@ function loadFullPage() {
   main.style.display = "none"
   searchrst.style.display = "none"
   homartDiv.style.display = "none"
-
+  commentsection.style.display = "block"
 
 }
 
@@ -186,18 +186,7 @@ function showFull() {
         ` 
       <hr class="featurette-divider">
       <div class="row featurette">
-      <div class="col-md-5">
-          <img  class="bd-placeholder-img bd-placeholder-img-lg featurette-image img-fluid mx-auto" width="500"
-          height="500"
-             src="${fullarticle.image}"  aria-label="Placeholder: 500x500"
-            preserveAspectRatio="xMidYMid slice" focusable="false">
-            
-            <rect width="100%" height="100%" fill="#eee" /><text x="50%" y="50%" fill="#aaa" dy=".3em"></text>
-          </img>
-          </br>
-          </br>
-          
-        </div>
+        
         <div class="col-md-7">
           <h3 class="featurette-heading">  ${fullarticle.title} .</h3>
             <p class="lead"><h5 class="text-muted">${fullarticle.date}. ${fullarticle.publisher}</h5></p>
@@ -211,14 +200,45 @@ function showFull() {
            
             <h4 class="featurette-heading">Abstract</h4>
             <h5 class="lead">${fullarticle.abstract}</h5>
-        </div
-        
+        </div>
+        <div class="col-md-5">
+          <img  class="bd-placeholder-img bd-placeholder-img-lg featurette-image img-fluid mx-auto" width="500"
+          height="500"
+             src="${fullarticle.image}"  aria-label="Placeholder: 500x500"
+            preserveAspectRatio="xMidYMid slice" focusable="false">
+            
+            <rect width="100%" height="100%" fill="#eee" /><text x="50%" y="50%" fill="#aaa" dy=".3em"></text>
+          </img>
+          </br>
+          </br>
+          
+        </div>
       </div > 
       `
-      console.log(template);
+      const commentemplate = `
+      <div class="col-md-5">
+        <h4 class="featurette-heading">Comments</h4>
+          <h5 class="lead">comments to be shown here</h5>
+      </div>
+      
+      `
       fullresult.innerHTML = ''
-
       fullresult.innerHTML += template
+
+      commentsection.innerHTML = ''
+      commentsection.innerHTML += commentemplate
+
+      const comments = fullarticle.comments
+      for (var i = 0; i < comments.length; i++) {
+        commentsection.innerHTML += `
+        -${comments[i].name}
+
+        -${comments[i].text}
+        <br>
+        <br>
+        `
+
+      }
       loadFullPage()
       window.scrollTo(0, 0);
 
@@ -296,14 +316,10 @@ sf.addEventListener("submit", async (event) => {
 
        `;
 
-
-
-
     });
 
     loadsearchrst()
     window.scrollTo(0, 0);
-
 
   } catch (e) {
     this.alert(e);
@@ -465,125 +481,6 @@ for (let i = 1; i < 4; i++) {
 
 }
 
-// function citeForm() {
-//   // post a citation  in json format
-//   //determine a type of citation according to value of button
-//   // returned a cited json string
-//   const citeforms = document.querySelectorAll(".submit_citation");
-//   citeforms.forEach(citeform => {
-
-//     citeform.addEventListener('click', async function (event) {
-
-//       event.preventDefault();
-
-
-//       console.log('clicked me');
-//       const id = citeform.value;
-//       console.log(id);
-//       let ref_no = document.getElementById('refno').value;
-
-//       console.log(ref_no);
-//       let initial = document.getElementsByName('initial');
-
-//       let surname = document.getElementsByName('surname');
-
-//       let authors = []
-
-
-//       for (var i = 0; i < initial.length; i++) {
-//         let author = {
-//           'initial': initial[i].value,
-//           'surname': surname[i].value
-//         };
-
-
-//         authors.push(author)
-//       };
-
-
-//       let title = document.getElementById('title').value;
-//       let volume = document.getElementById('vol').value;
-//       let issue = document.getElementById('i').value;
-//       let pageno = document.getElementById('pp').value
-//       let month = document.getElementById('mon').value;
-//       let day = document.getElementById('day').value;
-//       let year = document.getElementById('year').value;
-//       let doi = document.getElementById('doi').value;
-
-//       let referencedata = {
-//         'referencenumber': ref_no,
-
-//         'title': title,
-//         'vol': volume,
-//         'issue': issue,
-//         'pp': pageno,
-//         'month': month,
-//         'day': day,
-//         'year': year,
-//         'doi': doi,
-//         'authors': authors
-
-//       };
-
-//       //if (validateForm(title, volume, issue) != false) {
-//       let response = await fetch('http://127.0.0.1:8090/newcite?id=' + id, {
-//         method: 'POST',
-//         headers: {
-//           'Content-Type': 'application/json'
-//         },
-//         body: JSON.stringify(referencedata)
-//       });
-
-//       let body = await response.json();
-//       console.log('body is', body);
-
-//       try {
-
-//         citeresult.innerHTML = `
-//           <h3 class="card-title">
-//           Your Citation Here:
-//           </h3>
-//           `;
-//         console.log("got request")
-//         console.log(body);
-//         //console.log(citedata);
-
-
-//         //only return the last updated list of referencedata to index.js
-
-
-//         let item = document.createElement('li')
-//         item.innerHTML = ''
-//         item.innerHTML = body;
-//         item.innerHTML += `
-//         <br>
-//         <br>
-//         <button  class="btn btn-lg btn-primary toclear"  onclick='clearCiteResult()' >Clear</button>
-//         `
-//         citeresult.appendChild(item);
-
-
-//       } catch (e) {
-
-//         console.log(e);
-
-//       }
-
-
-
-//     });
-
-
-
-
-
-
-
-
-
-//   });
-
-// };
 
 
 
@@ -634,67 +531,22 @@ document.getElementById(`viewHistory`).addEventListener('click', async function 
 
   let response = await fetch('http://127.0.0.1:8090/citations/hist');
 
-      let body = await response.json()
-      console.log(body)
+  let body = await response.json()
+  console.log(body)
 
-      citehistory.innerHTML = ''
+  citehistory.innerHTML = ''
 
-      var arrayLength = body.length;
-      for (var i = 1; i < arrayLength; i++) {
-        citehistory.innerHTML += `
-        ${body[i]}
+  var arrayLength = body.length;
+  for (var i = 1; i < arrayLength; i++) {
+    citehistory.innerHTML += `
+        • ${body[i]}
+        <br>
         <br>
         `;
-      }
-
-      // citehistory.innerHTML += `
-      // <br>
-      // <br>
-      // <button  class="btn btn-lg btn-primary toHistoria" id="viewHistory" >View History</button>
-      // `
-
-    });
+  }
 
 
+});
 
-//view history of your citations
-// function viewHistory() {
-//   const histbtns = document.querySelectorAll('.toHistoria')
-//   histbtns.forEach(histbtn => {
-//     histbtn.addEventListener('click', async (event) => {
-//       event.preventDefault();
-      
-
-
-
-
-//       let response = await fetch('http://127.0.0.1:8090/citations/hist');
-
-//       let body = await response.json()
-//       console.log(body)
-
-//       citehistory.innerHTML = ''
-
-//       var arrayLength = body.length;
-//       for (var i = 0; i < arrayLength; i++) {
-//         citehistory.innerHTML = `
-//         ${body[i]}
-//         <br>
-//         `;
-//       }
-
-//       citehistory.innerHTML += `
-//       <br>
-//       <br>
-//       <button  class="btn btn-lg btn-primary toHistoria"  onclick='viewHistory() ' >View History</button>
-//       `
-
-//     })
-//   });
-
-
-
-
-// }
 
 

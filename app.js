@@ -80,8 +80,8 @@ const articles = [
             },
 
             {
-                "Name": "plxy99",
-                "Text": "doch!"
+                "name": "plxy99",
+                "text": "doch!"
             }
         ]
     },
@@ -221,8 +221,8 @@ const articles = [
             },
 
             {
-                "Name": "plxy99",
-                "Text": "doch!"
+                "name": "plxy99",
+                "text": "doch!"
             }
         ]
     },
@@ -281,7 +281,7 @@ const articles = [
         risk reduction (DRR) activities. For residents in geohazard-prone areas, disaster 
         education may affect the formation of risk perception. To verify this hypothesis, 
         residents' disaster risk perception is measured in four dimensions using data from 516
-         rural households in four typical geohazard-prone areas. Then, propensity score matching 
+        rural households in four typical geohazard-prone areas. Then, propensity score matching 
          (PSM) is used to explore the influence relationship. Disaster education is divided into
           three forms: emergency brochures, classroom training and evacuation drills. There are 
           five main findings. (1) In the four dimensions of risk perception, rural residents 
@@ -306,8 +306,8 @@ const articles = [
             },
 
             {
-                "Name": "plxy99",
-                "Text": "doch!"
+                "name": "plxy99",
+                "text": "doch!"
             }
         ]
     },
@@ -377,8 +377,8 @@ const articles = [
             },
 
             {
-                "Name": "plxy99",
-                "Text": "doch!"
+                "name": "plxy99",
+                "text": "doch!"
             }
         ]
     },
@@ -447,12 +447,12 @@ const articles = [
         "comments": [
             {
                 "name": "abcd12",
-                "text": "das ist ganz gut"
+                "text": `RT @StephanSroche: Cambridge University Press is offering 30% discount on many "Quantum Books" including ours on "Graphene, two-dimensional…`
             },
 
             {
-                "Name": "plxy99",
-                "Text": "doch!"
+                "name": "plxy99",
+                "text": "doch!"
             }
         ]
     },
@@ -499,8 +499,8 @@ const articles = [
             },
 
             {
-                "Name": "plxy99",
-                "Text": `RT @StephanSroche: Cambridge University Press is offering 30% discount on many "Quantum Books" including ours on "Graphene, two-dimensional…`
+                "name": "plxy99",
+                "text": `RT @StephanSroche: Cambridge University Press is offering 30% discount on many "Quantum Books" including ours on "Graphene, two-dimensional…`
             }
         ]
     }
