@@ -1,3 +1,4 @@
+/* eslint-disable eqeqeq */
 /* eslint-disable brace-style */
 /* eslint-disable no-tabs */
 /* eslint-disable quote-props */
@@ -567,6 +568,7 @@ app.get('/reqarticle', function (req, res) {
         console.log('id', id);
         const article = articles[i];
         console.log(article.id);
+        // eslint-disable-next-line eqeqeq
         if (articles[i].id == id) {
             // insert at the last postion of the array
             console.log('article', article);
@@ -594,7 +596,8 @@ app.get('/citations/req', function (req, res) {
         console.log('id ist', id);
         const reftype = reftypes[i];
         console.log(reftype.id);
-        if (reftypes[i].id === id) {
+        // eslint-disable-next-line eqeqeq
+        if (reftypes[i].id == id) {
             console.log('this type of citation ist', reftype);
             res.json(reftype);
         }
@@ -624,14 +627,22 @@ app.post('/newcite', function (req, res) {
     const id = req.query.id;
 
     // eslint-disable-next-line space-before-function-paren
-    function mapauthor(authors) {
-        if (authors != null) {
+    function mapauthor(authors, id) {
+        if (id == 1) {
             return `
         ${authors.map(function (author) {
                 return `${[author.initial.slice(0, 1).toUpperCase(), author.surname.substring(0, 1).toUpperCase() + author.surname.substring(1)].filter(Boolean).join(', ')}
         `;
             }).filter(Boolean).join('. ')}
         `;
+        } else if (id == 2 || id == 3) {
+            return `
+            ${authors.map(function (author) {
+                return `${[author.surname.substring(0, 1).toUpperCase() + author.surname.substring(1), author.initial.slice(0, 1).toUpperCase()].filter(Boolean).join(', ')}
+        `;
+            }).filter(Boolean).join('. ')}
+            
+            `;
         }
         else {
             console.log('not found');
@@ -639,19 +650,19 @@ app.post('/newcite', function (req, res) {
     };
     let referencedata = 0;
     console.log('hi');
-    if (id === 1) {
+    if (id == 1) {
         // IEE
-        referencedata = "[" + referencenumber + "] " + mapauthor(authors) + '. "' + title + '", vol. ' + volume + ", no. " + issue + ", pp. " + pageno + ", " +
+        referencedata = "[" + referencenumber + "] " + mapauthor(authors, id) + '. "' + title + '", vol. ' + volume + ", no. " + issue + ", pp. " + pageno + ", " +
             month + ". " + day + ". " + year + ". doi:\n" + doi + '\n';
         // const author = {
-    } else if (id === 2) {
+    } else if (id == 2) {
         // APA 7TH
-        referencedata = mapauthor(authors) + '. (' + year + '), ' + title + ', ' + volume + "(" + issue + "), " + pageno +
+        referencedata = mapauthor(authors, id) + '. (' + year + '), ' + title + ', ' + volume + "(" + issue + "), " + pageno +
             ". doi:\n" + doi + '\n';
-    } else if (id === 3) {
+    } else if (id == 3) {
         // vancouver
         // surname first (full)
-        referencedata = referencenumber + ".     " + mapauthor(authors) + '. "' + title + '",' + year + ". " + month + ". " + day + '; ' + volume + "(" + issue + "):" + pageno +
+        referencedata = referencenumber + ".     " + mapauthor(authors, id) + '. "' + title + '",' + year + ". " + month + ". " + day + '; ' + volume + "(" + issue + "):" + pageno +
             ". doi:\n" + doi + '\n';
     } else if (id > 3) {
         res.status(404).json(`cite type ${id} is out of range. Not found!`);
@@ -661,7 +672,7 @@ app.post('/newcite', function (req, res) {
 
     references.push(referencedata);
 
-    console.log(references);
+    res.json(referencedata);
 });
 
 app.get('/citations/hist', function (req, res) {
@@ -682,7 +693,7 @@ app.post('/comments/addcomment', function (req, res) {
 
     for (let i = 0; i < articles.length; i++) {
         const article = articles[i];
-        if (article.id === id) {
+        if (article.id == id) {
             const comments = article.comments;
             comments.push(body);
             console.log(comments);

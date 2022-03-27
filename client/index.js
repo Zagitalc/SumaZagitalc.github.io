@@ -98,8 +98,6 @@ window.addEventListener("DOMContentLoaded", async (event) => {
   try {
     const homearticles = await loadarticleJson();
 
-    // const divContainer = document.getElementById("articlecontainer");
-
     homearticles.forEach(article => {
       homartDiv.innerHTML +=
         `<hr class="featurette-divider">
@@ -148,7 +146,7 @@ function showFull() {
       const response = await fetch('http://127.0.0.1:8090/reqarticle?id=' + id);
 
       console.log(response);
-      let fullarticle = await response.json();
+      const fullarticle = await response.json();
       console.log('fullarticle is', fullarticle);
       console.log(fullarticle);
       const template =
@@ -340,7 +338,7 @@ function addFields() {
     label2.setAttribute("class", "col-sm-2 col-form-label col-form-label-lg");
 
     label2.appendChild(document.createTextNode("initial " + (i + 1)));
-    container.appendChild(label);
+    container.appendChild(label2);
 
     // Create an <input> element, set its type and name attributes
     const input2 = document.createElement("input");
@@ -411,57 +409,60 @@ for (let i = 1; i < 4; i++) {
       'authors': authors
 
     };
+    const detailslist = [refno, title, year, doi];
+    if (validateForm(detailslist) !== false) {
+      // eslint-disable-next-line no-undef
+      const response = await fetch('http://127.0.0.1:8090/newcite?id=' + id, {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json'
+        },
+        body: JSON.stringify(referencedata)
 
-    // cif (validateForm(title, volume, issue) != false) {
-    // eslint-disable-next-line no-undef
-    const response = await fetch('http://127.0.0.1:8090/newcite?id=' + id, {
-      method: 'POST',
-      headers: {
-        'Content-Type': 'application/json'
-      },
-      body: JSON.stringify(referencedata)
+      });
+      console.log();
+      const body = await response.json();
+      console.log('body is', body);
 
-    });
-    console.log();
-    const body = await response.json();
-    console.log('body is', body);
-
-    try {
-      citeresult.innerHTML = `
+      try {
+        citeresult.innerHTML = `
           <h3 class="card-title">
           Your Citation Here:
           </h3>
           `;
-      console.log("got request");
-      console.log(body);
-      // console.log(citedata);
+        console.log("got request");
+        console.log(body);
+        // console.log(citedata);
 
-      // only return the last updated list of referencedata to index.js
+        // only return the last updated list of referencedata to index.js
 
-      const item = document.createElement('li');
-      item.innerHTML = '';
-      item.innerHTML = body;
-      item.innerHTML += `
+        const item = document.createElement('li');
+        item.innerHTML = '';
+        item.innerHTML = body;
+        item.innerHTML += `
         <br>
         <br>
         <button  class="btn btn-lg btn-primary toclear"  onclick='clearCiteResult()' >Clear</button>
         `;
-      citeresult.appendChild(item);
-    } catch (e) {
-      console.log(e);
+        citeresult.appendChild(item);
+      } catch (e) {
+        console.log(e);
+      }
     }
   });
 }
 
 // eslint-disable-next-line no-unused-vars
-function validateForm(title, volume, issue) {
+function validateForm(detailslist) {
   // eslint-disable-next-line no-sequences
-  if (title, volume, issue === "") {
-    // eslint-disable-next-line no-undef
-    alert("Name must be filled out");
-    return false;
-  }
-}
+  for (let i = 0; i < detailslist.length; i++) {
+    if (detailslist[i] === "") {
+      // eslint-disable-next-line no-undef
+      alert(`name must be filled out`);
+      return false;
+    };
+  };
+};
 
 // eslint-disable-next-line no-unused-vars
 function clearCiteResult() {
