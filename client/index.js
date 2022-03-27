@@ -409,7 +409,7 @@ for (let i = 1; i < 4; i++) {
       'authors': authors
 
     };
-    const detailslist = [refno, title, year, doi];
+    const detailslist = [refno, title, volume, issue, month, day, year, doi];
     if (validateForm(detailslist) !== false) {
       // eslint-disable-next-line no-undef
       const response = await fetch('http://127.0.0.1:8090/newcite?id=' + id, {
